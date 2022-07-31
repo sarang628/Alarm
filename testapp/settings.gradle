@@ -1,0 +1,14 @@
+rootProject.name = "My Application"
+include ':app'
+
+include ':torang_core'
+project(':torang_core').projectDir = new File('../../../Core/TorangCore/torang_core')
+
+include ':screen_alarm'
+project(':screen_alarm').projectDir = new File('../../../Screens/Alarm/screen_alarm')
+
+include ':TorangRepository'
+project(':TorangRepository').projectDir = new File('../../../Repository/TorangRepository')
+
+include ':torangimageloader'
+project(':torangimageloader').projectDir = new File('../../../Utils/TorangImageLoader/torangimageloader')
