@@ -17,10 +17,10 @@ class DaoModules {
     }*/
 
     /** 로컬 데이터베이스의 사용자 로그인 관리 DAO 제공 */
-    /*@Provides
+    @Provides
     fun provideLoggedInUserDao(appDatabase: AppDatabase): LoggedInUserDao {
         return appDatabase.LoggedInUserDao()
-    }*/
+    }
 
     /** 로컬 데이터베이스의 사용자 관리 DAO 제공 */
     @Provides
