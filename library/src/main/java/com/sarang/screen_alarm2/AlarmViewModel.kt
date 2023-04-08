@@ -14,14 +14,7 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
     val alarms: LiveData<ArrayList<Alarm>> = _alarms
 
     /** 로그인 여부 */
-    val isLogin: LiveData<Boolean> = alarmRepository.user().switchMap {
-        if (it != null) {
-            loadAlarms()
-            MutableLiveData(it.userId != 0)
-        } else {
-            MutableLiveData(false)
-        }
-    }
+    val isLogin: LiveData<Boolean> = alarmRepository.isLogin
 
     /**
      * 알림 불러오기
@@ -30,7 +23,8 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
         viewModelScope.launch {
             try {
                 _alarms.postValue(alarmRepository.loadAlarm())
-            } catch (e: Exception) {
+            } catch (e: java.lang.Exception) {
+                throw Exception("!!!")
             }
         }
     }

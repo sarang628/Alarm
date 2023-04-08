@@ -8,9 +8,10 @@
 
     <fragment
         android:id="@+id/fragment"
-        class="com.sarang.screen_alarm2.AlarmFragment"
+        class="com.sarang.screen_alarm2.AlarmMainFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

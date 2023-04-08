@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/alarm_navigation"
+    app:startDestination="@id/alarmFragment">
+
+    <fragment
+        android:id="@+id/alarmFragment"
+        android:name="com.sarang.screen_alarm2.AlarmListFragment"
+        android:label="AlarmFragment" />
+    <fragment
+        android:id="@+id/nonLoginFragment"
+        android:name="com.sarang.screen_alarm2.NonLoginFragment"
+        android:label="NonLoginFragment" />
+</navigation>

@@ -19,8 +19,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSecondaryLight"
-        tools:context=".AlarmFragment">
+        tools:context=".AlarmListFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sl_alarm"
@@ -40,18 +39,6 @@
                 tools:listitem="@layout/item_alarm" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{()->loginNavigation.goLogin(context)}"
-            android:text="로그인해주세요"
-            android:visibility="@{viewModel.isLogin ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

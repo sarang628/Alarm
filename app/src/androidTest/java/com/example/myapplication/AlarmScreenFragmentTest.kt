@@ -1,10 +1,9 @@
 package com.example.myapplication
 
 import androidx.core.os.bundleOf
-import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
-import com.sarang.screen_alarm2.AlarmFragment
+import com.sarang.screen_alarm2.AlarmListFragment
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Rule
@@ -21,14 +20,14 @@ class AlarmScreenFragmentTest {
         // The "fragmentArgs" argument is optional.
         val fragmentArgs = bundleOf("selectedListItem" to 100)
         //val scenario = launchFragmentInContainer<AlarmFragment>(fragmentArgs)
-        val scenario = launchFragmentInHiltContainer<AlarmFragment>(
+        val scenario = launchFragmentInHiltContainer<AlarmListFragment>(
             fragmentArgs = fragmentArgs
         )
     }
 
     @Test
     fun resumeTest() {
-        val scenario = launchFragmentInContainer<AlarmFragment>(
+        val scenario = launchFragmentInContainer<AlarmListFragment>(
             initialState = Lifecycle.State.RESUMED
         )
 

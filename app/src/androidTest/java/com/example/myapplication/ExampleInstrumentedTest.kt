@@ -1,17 +1,10 @@
 package com.example.myapplication
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.torang_core.data.dao.LoggedInUserDao
-import com.example.torang_core.data.model.LoggedInUserData
-import com.example.torangrepository.LoginRepositoryImpl
-import kotlinx.coroutines.runBlocking
-
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Assert.*
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import javax.inject.Inject
 
 /**
  * Instrumented test, which will execute on an Android device.
