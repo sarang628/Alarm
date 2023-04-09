@@ -20,12 +20,20 @@ class TestAlarmRepositoryImpl @Inject constructor() : AlarmRepository {
 
     }
 
+    var b = false;
+
     override suspend fun loadAlarm(): ArrayList<Alarm> {
         withContext(Dispatchers.IO) {
             sleep(1000)
         }
-        //throw Exception("서버 접속에 실패하였습니다.")
-        return ArrayList();
+
+        b = !b
+
+        if (b)
+            throw Exception("서버 접속에 실패하였습니다.")
+        else
+            return ArrayList();
+
     }
 
     override fun user(): LiveData<LoggedInUserData?> {

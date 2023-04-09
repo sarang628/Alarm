@@ -18,6 +18,21 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
     /** 로그인 여부 */
     val isLogin: LiveData<Boolean> = alarmRepository.isLogin
 
+    val hasAlarm1 = MediatorLiveData<Boolean>()
+
+    init {
+        hasAlarm1.addSource(isLoaded) {
+            hasAlarm1.value = handleHasAlarm()
+        }
+        hasAlarm1.addSource(_alarms) {
+            hasAlarm1.value = handleHasAlarm()
+        }
+    }
+
+    private fun handleHasAlarm(): Boolean {
+        return !(_isLoaded.value == true && _alarms.value?.size == 0)
+    }
+
     /**
      * 알림 불러오기
      */
