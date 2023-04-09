@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.torang_core.navigation.LoginNavigation
 import com.sarang.screen_alarm2.databinding.FragmentAlarmListBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -30,12 +33,15 @@ open class AlarmListFragment : Fragment() {
     @Inject
     lateinit var loginNavigation: LoginNavigation
 
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
+        swipeRefreshLayout = binding.slAlarm
         binding.viewModel = viewModel
         binding.loginNavigation = loginNavigation
         binding.lifecycleOwner = viewLifecycleOwner
@@ -66,12 +72,15 @@ open class AlarmListFragment : Fragment() {
     }
 
     private fun loadAlarm() {
-        try {
-            viewModel.loadAlarms()
-        } catch (e: Exception) {
-            AlertDialog.Builder(context)
-                .setMessage("알림을 가져오는데 실패하였습니다.\n(" + e.message + ")")
-                .show()
+        viewModel.viewModelScope.launch {
+            try {
+                viewModel.loadAlarms()
+            } catch (e: java.lang.Exception) {
+                swipeRefreshLayout.isRefreshing = false
+                AlertDialog.Builder(context)
+                    .setMessage("알림을 가져오는데 실패하였습니다.\n(" + e.message + ")")
+                    .show()
+            }
         }
     }
 

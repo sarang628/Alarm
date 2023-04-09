@@ -10,6 +10,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepository) :
     ViewModel() {
+    private var _isLoaded = MutableLiveData(false)
+    private var isLoaded: LiveData<Boolean> = _isLoaded
     private val _alarms = MutableLiveData<ArrayList<Alarm>>()
     val alarms: LiveData<ArrayList<Alarm>> = _alarms
 
@@ -19,13 +21,20 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
     /**
      * 알림 불러오기
      */
-    fun loadAlarms() {
-        viewModelScope.launch {
-            try {
-                _alarms.postValue(alarmRepository.loadAlarm())
-            } catch (e: java.lang.Exception) {
-                throw Exception("!!!")
-            }
+    suspend fun loadAlarms() {
+        try {
+            _isLoaded.postValue(true)
+            _alarms.postValue(alarmRepository.loadAlarm())
+        } catch (e: java.lang.Exception) {
+            throw Exception(e.message)
         }
     }
+
+    fun hasAlarm(): LiveData<Boolean> {
+        if (_isLoaded.value == true && _alarms.value?.size == 0) {
+            return MutableLiveData(false);
+        }
+        return MutableLiveData(true);
+    }
+
 }
