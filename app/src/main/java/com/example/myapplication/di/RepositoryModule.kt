@@ -1,10 +1,10 @@
 package com.example.myapplication.di
 
 import android.content.Context
+import com.example.myapplication.TestAlarmRepositoryImpl
 import com.example.torang_core.data.AppDatabase
 import com.example.torang_core.repository.*
 import com.example.torangrepository.*
-import com.example.torangrepository.repository.impl.*
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -30,23 +30,26 @@ class DatabaseModule {
 @InstallIn(SingletonComponent::class)
 abstract class AppRepositoryModule {
     @Binds
-    abstract fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
+    abstract fun provideLoginRepository(loginRepositoryImpl: TestAlarmRepositoryImpl): AlarmRepository
 
-    @Binds
-    abstract fun provideNationRepository(nationRepositoryImpl: NationRepositoryImpl): NationRepository
+//    @Binds
+//    abstract fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository
 
-    @Binds
-    abstract fun provideMyReviewsRepository(myReviewsRepositoryImpl: MyReviewsRepositoryImpl): MyReviewsRepository
+//    @Binds
+//    abstract fun provideNationRepository(nationRepositoryImpl: NationRepositoryImpl): NationRepository
 
-    @Binds
-    abstract fun provideMyReviewRepository(myReviewRepositoryImpl: MyReviewRepositoryImpl): MyReviewRepository
+//    @Binds
+//    abstract fun provideMyReviewsRepository(myReviewsRepositoryImpl: MyReviewsRepositoryImpl): MyReviewsRepository
 
-    @Binds
-    abstract fun provideFindRepository(findRepository: FindRepositoryImpl): FindRepository
+//    @Binds
+//    abstract fun provideMyReviewRepository(myReviewRepositoryImpl: MyReviewRepositoryImpl): MyReviewRepository
 
-    @Binds
-    abstract fun provideFilterRepository(filterRepository: FilterRepositoryImpl): FilterRepository
+//    @Binds
+//    abstract fun provideFindRepository(findRepository: FindRepositoryImpl): FindRepository
 
-    @Binds
-    abstract fun provideFeedRepository(feedRepositoryImpl: FeedRepositoryImpl): FeedRepository
+//    @Binds
+//    abstract fun provideFilterRepository(filterRepository: FilterRepositoryImpl): FilterRepository
+
+//    @Binds
+//    abstract fun provideFeedRepository(feedRepositoryImpl: FeedRepositoryImpl): FeedRepository
 }

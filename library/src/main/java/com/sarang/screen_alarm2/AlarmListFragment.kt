@@ -24,23 +24,22 @@ import javax.inject.Inject
 open class AlarmListFragment : Fragment() {
 
     /** 알림 뷰모델  */
-    private val mViewModel: AlarmViewModel by viewModels()
+    private val viewModel: AlarmViewModel by viewModels()
 
     /** 알람 내비게이션 */
     @Inject
     lateinit var loginNavigation: LoginNavigation
 
-    /** 뷰 생성  */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
-        binding.viewModel = mViewModel
+        binding.viewModel = viewModel
         binding.loginNavigation = loginNavigation
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.rvAlarm.adapter = AlarmRvAdt(mViewModel)
+        binding.rvAlarm.adapter = AlarmRvAdt(viewModel)
         binding.rvAlarm.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
@@ -55,23 +54,20 @@ open class AlarmListFragment : Fragment() {
                 outRect.right = 8
             }
         })
+        // 스와이프 레이아웃 리프레시
         binding.slAlarm.setOnRefreshListener {
             loadAlarm()
         }
-        initEventActions(binding) // 이벤트 액션 초기화
 
-        mViewModel.isLogin.observe(viewLifecycleOwner) {
-            if (!it) {
-                findNavController().navigate(R.id.nonLoginFragment)
-            }
-        }
+        // 뷰모델 구독
+        subScribeViewModel(viewModel, binding)
 
         return binding.root
     }
 
     private fun loadAlarm() {
         try {
-            mViewModel.loadAlarms()
+            viewModel.loadAlarms()
         } catch (e: Exception) {
             AlertDialog.Builder(context)
                 .setMessage("알림을 가져오는데 실패하였습니다.\n(" + e.message + ")")
@@ -80,10 +76,16 @@ open class AlarmListFragment : Fragment() {
     }
 
     /** 이벤트 엑션 초기화  */
-    private fun initEventActions(binding: FragmentAlarmListBinding) {
-        mViewModel.alarms.observe(viewLifecycleOwner) { alarms ->
+    private fun subScribeViewModel(viewModel: AlarmViewModel, binding: FragmentAlarmListBinding) {
+        viewModel.alarms.observe(viewLifecycleOwner) { alarms ->
             binding.slAlarm.isRefreshing = false
             (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(alarms)
+        }
+
+        viewModel.isLogin.observe(viewLifecycleOwner) {
+            if (!it) {
+                findNavController().navigate(R.id.nonLoginFragment)
+            }
         }
     }
 

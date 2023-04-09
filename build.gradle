@@ -41,7 +41,7 @@ ext {
     facebookLibraryVersion = '8.1.0'
     fragment_version = "1.4.1"
 
-    torangRepositoryVersion = '37e74cb9f4'
+    torangRepositoryVersion = 'a2040dcadd'
     coreVersion = '1a0e406fa3'
 }
 
