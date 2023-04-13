@@ -1,11 +1,9 @@
 package com.example.myapplication.di
 
 import android.content.Context
-import com.example.myapplication.TestAlarmRepositoryImpl
 import com.example.torang_core.data.AppDatabase
 import com.example.torang_core.repository.*
 import com.example.torangrepository.*
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,8 +27,8 @@ class DatabaseModule {
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class AppRepositoryModule {
-    @Binds
-    abstract fun provideLoginRepository(loginRepositoryImpl: TestAlarmRepositoryImpl): AlarmRepository
+//    @Binds
+//    abstract fun provideLoginRepository(loginRepositoryImpl: TestAlarmRepositoryImpl): AlarmRepository
 
 //    @Binds
 //    abstract fun provideLoginRepository(loginRepositoryImpl: LoginRepositoryImpl): LoginRepository

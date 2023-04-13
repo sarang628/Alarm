@@ -1,7 +1,9 @@
 package com.sarang.torang.di
 
+import androidx.lifecycle.LiveData
 import com.example.torang_core.data.AppDatabase
 import com.example.torang_core.data.dao.*
+import com.example.torang_core.data.model.LoggedInUserData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

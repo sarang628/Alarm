@@ -10,10 +10,6 @@
             type="com.sarang.screen_alarm2.AlarmViewModel" />
 
         <import type="android.view.View" />
-
-        <variable
-            name="loginNavigation"
-            type="com.example.torang_core.navigation.LoginNavigation" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

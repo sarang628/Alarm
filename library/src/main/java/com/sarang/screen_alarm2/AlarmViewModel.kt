@@ -1,22 +1,27 @@
 package com.sarang.screen_alarm2
 
-import androidx.lifecycle.*
-import com.example.torang_core.data.model.Alarm
-import com.example.torang_core.repository.AlarmRepository
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepository) :
+class AlarmViewModel @Inject constructor(
+    //private val alarmRepository: AlarmRepository
+) :
     ViewModel() {
     private var _isLoaded = MutableLiveData(false)
     private var isLoaded: LiveData<Boolean> = _isLoaded
-    private val _alarms = MutableLiveData<ArrayList<Alarm>>()
-    val alarms: LiveData<ArrayList<Alarm>> = _alarms
+    private val _alarms = MutableLiveData<ArrayList<AlarmUiState>>()
+    val alarms: LiveData<ArrayList<AlarmUiState>> = _alarms
+
+    private val _alarmUiState = MutableLiveData<AlarmUiState>();
+    val alarmUiState = _alarmUiState;
 
     /** 로그인 여부 */
-    val isLogin: LiveData<Boolean> = alarmRepository.isLogin
+    //val isLogin: LiveData<Boolean> = alarmRepository.isLogin
 
     val hasAlarm1 = MediatorLiveData<Boolean>()
 
@@ -27,6 +32,12 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
         hasAlarm1.addSource(_alarms) {
             hasAlarm1.value = handleHasAlarm()
         }
+
+        val list = ArrayList<AlarmListItem>();
+        list.add(AlarmListItem(0, "1", "2", "3"))
+        val alarmUiState = AlarmUiState(list);
+        _alarmUiState.postValue(alarmUiState);
+
     }
 
     private fun handleHasAlarm(): Boolean {
@@ -39,7 +50,9 @@ class AlarmViewModel @Inject constructor(private val alarmRepository: AlarmRepos
     suspend fun loadAlarms() {
         try {
             _isLoaded.postValue(true)
-            _alarms.postValue(alarmRepository.loadAlarm())
+            /*_alarms.postValue(
+                alarmRepository.loadAlarm()
+            )*/
         } catch (e: java.lang.Exception) {
             throw Exception(e.message)
         }

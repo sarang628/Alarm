@@ -1,14 +1,14 @@
 package com.sarang.screen_alarm2
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.torang_core.data.model.Alarm
 
-internal class AlarmRvAdt constructor(val viewModel: AlarmViewModel) :
+internal class AlarmRvAdt :
     RecyclerView.Adapter<AlarmVH>() {
-    private var alarms: List<Alarm> = ArrayList()
+    private var alarms: List<AlarmListItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmVH {
-        return AlarmVH.create(parent, viewModel)
+        return AlarmVH.create(parent)
     }
 
     override fun onBindViewHolder(holder: AlarmVH, position: Int) {
@@ -19,8 +19,9 @@ internal class AlarmRvAdt constructor(val viewModel: AlarmViewModel) :
         return alarms.size
     }
 
-    fun setAlarm(alarms: List<Alarm>) {
-        this.alarms = alarms
+    fun setAlarm(list: List<AlarmListItem>) {
+        Log.i("AlarmRvAdt", "setAlarm : " + list.size)
+        this.alarms = list
         notifyDataSetChanged()
     }
 }

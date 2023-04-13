@@ -12,7 +12,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.example.torang_core.navigation.LoginNavigation
 import com.sarang.screen_alarm2.databinding.FragmentAlarmListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,8 +29,8 @@ open class AlarmListFragment : Fragment() {
     private val viewModel: AlarmViewModel by viewModels()
 
     /** 알람 내비게이션 */
-    @Inject
-    lateinit var loginNavigation: LoginNavigation
+//    @Inject
+//    lateinit var loginNavigation: LoginNavigation
 
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -41,11 +40,22 @@ open class AlarmListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
+        // 뷰 초기화
+        initView(binding)
+        // 스와이프 레이아웃 리프레시
+        binding.slAlarm.setOnRefreshListener {
+            loadAlarm()
+        }
+        // 뷰모델 구독
+        subScribeViewModel(viewModel, binding)
+        return binding.root
+    }
+
+    private fun initView(binding: FragmentAlarmListBinding) {
         swipeRefreshLayout = binding.slAlarm
         binding.viewModel = viewModel
-        binding.loginNavigation = loginNavigation
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.rvAlarm.adapter = AlarmRvAdt(viewModel)
+        binding.rvAlarm.adapter = AlarmRvAdt()
         binding.rvAlarm.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
@@ -60,15 +70,6 @@ open class AlarmListFragment : Fragment() {
                 outRect.right = 8
             }
         })
-        // 스와이프 레이아웃 리프레시
-        binding.slAlarm.setOnRefreshListener {
-            loadAlarm()
-        }
-
-        // 뷰모델 구독
-        subScribeViewModel(viewModel, binding)
-
-        return binding.root
     }
 
     private fun loadAlarm() {
@@ -86,16 +87,16 @@ open class AlarmListFragment : Fragment() {
 
     /** 이벤트 엑션 초기화  */
     private fun subScribeViewModel(viewModel: AlarmViewModel, binding: FragmentAlarmListBinding) {
-        viewModel.alarms.observe(viewLifecycleOwner) { alarms ->
+        viewModel.alarmUiState.observe(viewLifecycleOwner) { uistate ->
             binding.slAlarm.isRefreshing = false
-            (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(alarms)
+            (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(uistate.list)
         }
 
-        viewModel.isLogin.observe(viewLifecycleOwner) {
+        /*viewModel.isLogin.observe(viewLifecycleOwner) {
             if (!it) {
                 findNavController().navigate(R.id.nonLoginFragment)
             }
-        }
+        }*/
     }
 
 }

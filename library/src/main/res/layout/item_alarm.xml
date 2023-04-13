@@ -11,7 +11,7 @@
 
         <variable
             name="alarm"
-            type="com.example.torang_core.data.model.Alarm" />
+            type="com.sarang.screen_alarm2.AlarmListItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            loadCircleImage="@{alarm.otherUser.profile_pic_url}"
+            loadCircleImage="@{alarm.otherPictureUrl}"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="8dp"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{alarm.create_date}"
+            android:text="@{alarm.createDate}"
             app:layout_constraintStart_toStartOf="@+id/textView"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             tools:text="3시간 전" />
