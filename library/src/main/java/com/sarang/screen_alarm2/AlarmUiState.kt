@@ -1,8 +1,5 @@
 package com.sarang.screen_alarm2
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
 data class AlarmUiState(
     val isRefreshing: Boolean,
     val list: List<AlarmListItem>,
