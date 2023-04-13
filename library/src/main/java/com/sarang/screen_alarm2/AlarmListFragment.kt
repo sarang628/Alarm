@@ -3,6 +3,7 @@ package com.sarang.screen_alarm2
 import android.app.AlertDialog
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ import javax.inject.Inject
 open class AlarmListFragment : Fragment() {
 
     /** 알림 뷰모델  */
-    private val viewModel: AlarmViewModel by viewModels()
+    private val viewModel: TestAlarmViewModel by viewModels()
 
     /** 알람 내비게이션 */
 //    @Inject
@@ -53,7 +54,6 @@ open class AlarmListFragment : Fragment() {
 
     private fun initView(binding: FragmentAlarmListBinding) {
         swipeRefreshLayout = binding.slAlarm
-        binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.rvAlarm.adapter = AlarmRvAdt()
         binding.rvAlarm.addItemDecoration(object : RecyclerView.ItemDecoration() {
@@ -74,22 +74,20 @@ open class AlarmListFragment : Fragment() {
 
     private fun loadAlarm() {
         viewModel.viewModelScope.launch {
-            try {
-                viewModel.loadAlarms()
-            } catch (e: java.lang.Exception) {
-                swipeRefreshLayout.isRefreshing = false
-                AlertDialog.Builder(context)
-                    .setMessage("알림을 가져오는데 실패하였습니다.\n(" + e.message + ")")
-                    .show()
-            }
+            viewModel.loadAlarms()
         }
     }
 
     /** 이벤트 엑션 초기화  */
-    private fun subScribeViewModel(viewModel: AlarmViewModel, binding: FragmentAlarmListBinding) {
+    private fun subScribeViewModel(
+        viewModel: TestAlarmViewModel,
+        binding: FragmentAlarmListBinding
+    ) {
         viewModel.alarmUiState.observe(viewLifecycleOwner) { uistate ->
-            binding.slAlarm.isRefreshing = false
+            Log.i("AlarmListFragment", uistate.toString())
+            binding.slAlarm.isRefreshing = uistate.isRefreshing
             (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(uistate.list)
+            binding.uiState = uistate
         }
 
         /*viewModel.isLogin.observe(viewLifecycleOwner) {

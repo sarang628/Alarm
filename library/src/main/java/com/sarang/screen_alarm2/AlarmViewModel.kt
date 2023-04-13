@@ -32,12 +32,6 @@ class AlarmViewModel @Inject constructor(
         hasAlarm1.addSource(_alarms) {
             hasAlarm1.value = handleHasAlarm()
         }
-
-        val list = ArrayList<AlarmListItem>();
-        list.add(AlarmListItem(0, "1", "2", "3"))
-        val alarmUiState = AlarmUiState(list);
-        _alarmUiState.postValue(alarmUiState);
-
     }
 
     private fun handleHasAlarm(): Boolean {
@@ -54,7 +48,7 @@ class AlarmViewModel @Inject constructor(
                 alarmRepository.loadAlarm()
             )*/
         } catch (e: java.lang.Exception) {
-            throw Exception(e.message)
+            _alarmUiState.postValue(_alarmUiState.value?.copy(isRefreshing = false))
         }
     }
 

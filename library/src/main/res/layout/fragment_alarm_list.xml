@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.sarang.screen_alarm2.AlarmViewModel" />
+            name="uiState"
+            type="com.sarang.screen_alarm2.AlarmUiState" />
 
         <import type="android.view.View" />
     </data>
@@ -31,7 +31,7 @@
                 android:id="@+id/rv_alarm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.hasAlarm() ? View.VISIBLE : View.GONE}"
+                android:visibility="@{uiState.hasAlarm() ? View.VISIBLE : View.GONE}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_alarm" />
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="알림이 없습니다."
-            android:visibility="@{viewModel.hasAlarm1 ? View.GONE : View.VISIBLE}"
+            android:visibility="@{uiState.hasAlarm() ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
