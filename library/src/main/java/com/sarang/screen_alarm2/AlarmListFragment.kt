@@ -73,9 +73,7 @@ open class AlarmListFragment : Fragment() {
     }
 
     private fun loadAlarm() {
-        viewModel.viewModelScope.launch {
-            viewModel.loadAlarms()
-        }
+        viewModel.loadAlarms()
     }
 
     /** 이벤트 엑션 초기화  */
@@ -90,11 +88,11 @@ open class AlarmListFragment : Fragment() {
             binding.uiState = uistate
         }
 
-        /*viewModel.isLogin.observe(viewLifecycleOwner) {
+        viewModel.isLogin.observe(viewLifecycleOwner) {
             if (!it) {
                 findNavController().navigate(R.id.nonLoginFragment)
             }
-        }*/
+        }
     }
 
 }
