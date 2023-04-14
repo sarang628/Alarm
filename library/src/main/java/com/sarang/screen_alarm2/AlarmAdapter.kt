@@ -4,14 +4,14 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-internal class AlarmRvAdt :
-    RecyclerView.Adapter<AlarmVH>() {
+internal class AlarmAdapter :
+    RecyclerView.Adapter<AlarmViewHolder>() {
     private var alarms: List<AlarmListItem> = ArrayList()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmVH {
-        return AlarmVH.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlarmViewHolder {
+        return AlarmViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: AlarmVH, position: Int) {
+    override fun onBindViewHolder(holder: AlarmViewHolder, position: Int) {
         holder.setAlarm(alarms[position])
     }
 

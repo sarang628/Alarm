@@ -1,4 +1,4 @@
-package com.sarang.screen_alarm2
+package com.sarang.screen_alarm2.fragment
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -11,7 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.sarang.screen_alarm2.AlarmAdapter
+import com.sarang.screen_alarm2.R
 import com.sarang.screen_alarm2.databinding.FragmentAlarmListBinding
+import com.sarang.screen_alarm2.viewmodel.TestAlarmViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -48,7 +51,7 @@ open class AlarmListFragment : Fragment() {
     private fun initView(binding: FragmentAlarmListBinding) {
         swipeRefreshLayout = binding.slAlarm
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.rvAlarm.adapter = AlarmRvAdt()
+        binding.rvAlarm.adapter = AlarmAdapter()
         binding.rvAlarm.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(
                 outRect: Rect,
@@ -76,7 +79,7 @@ open class AlarmListFragment : Fragment() {
             binding.slAlarm.isRefreshing = uiState.isRefreshing
 
             //새로 받은 알람 설정
-            (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(uiState.list)
+            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.list)
         }
 
         viewModel.isLogin.observe(viewLifecycleOwner) {

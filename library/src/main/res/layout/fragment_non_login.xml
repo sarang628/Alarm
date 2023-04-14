@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.sarang.screen_alarm2.AlarmViewModel" />
+            type="com.sarang.screen_alarm2.viewmodel.AlarmViewModel" />
 
         <import type="android.view.View" />
 

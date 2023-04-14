@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.sarang.screen_alarm2.AlarmViewModel" />
+            type="com.sarang.screen_alarm2.viewmodel.AlarmViewModel" />
 
         <variable
             name="alarm"

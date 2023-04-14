@@ -8,6 +8,6 @@
     android:layout_height="match_parent"
     app:defaultNavHost="true"
     app:navGraph="@navigation/alarm_navigation"
-    tools:context=".AlarmMainFragment">
+    tools:context=".fragment.AlarmMainFragment">
 
 </androidx.fragment.app.FragmentContainerView>
