@@ -1,6 +1,5 @@
 package com.sarang.screen_alarm2
 
-import android.app.AlertDialog
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
@@ -9,20 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.sarang.screen_alarm2.databinding.FragmentAlarmListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-/**
- * [AlarmRvAdt]
- * [AlarmVH]
- * [FragmentAlarmListBinding]
- */
 @AndroidEntryPoint
 open class AlarmListFragment : Fragment() {
 
@@ -41,14 +32,16 @@ open class AlarmListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
+
         // 뷰 초기화
         initView(binding)
+
         // 스와이프 레이아웃 리프레시
-        binding.slAlarm.setOnRefreshListener {
-            loadAlarm()
-        }
+        binding.slAlarm.setOnRefreshListener { viewModel.loadAlarms() }
+
         // 뷰모델 구독
         subScribeViewModel(viewModel, binding)
+
         return binding.root
     }
 
@@ -72,20 +65,18 @@ open class AlarmListFragment : Fragment() {
         })
     }
 
-    private fun loadAlarm() {
-        viewModel.loadAlarms()
-    }
-
-    /** 이벤트 엑션 초기화  */
     private fun subScribeViewModel(
         viewModel: TestAlarmViewModel,
         binding: FragmentAlarmListBinding
     ) {
-        viewModel.alarmUiState.observe(viewLifecycleOwner) { uistate ->
-            Log.i("AlarmListFragment", uistate.toString())
-            binding.slAlarm.isRefreshing = uistate.isRefreshing
-            (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(uistate.list)
-            binding.uiState = uistate
+        viewModel.alarmUiState.observe(viewLifecycleOwner) { uiState ->
+            Log.i("AlarmListFragment", uiState.toString())
+
+            binding.uiState = uiState
+            binding.slAlarm.isRefreshing = uiState.isRefreshing
+
+            //새로 받은 알람 설정
+            (binding.rvAlarm.adapter as AlarmRvAdt).setAlarm(uiState.list)
         }
 
         viewModel.isLogin.observe(viewLifecycleOwner) {
