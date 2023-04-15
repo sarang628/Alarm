@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment"
-        class="com.sarang.screen_alarm2.fragment.AlarmMainFragment"
+        class="com.sarang.alarm.fragment.NonLoginFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"

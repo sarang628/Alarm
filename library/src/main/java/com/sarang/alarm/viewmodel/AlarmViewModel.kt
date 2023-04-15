@@ -1,8 +1,8 @@
-package com.sarang.screen_alarm2.viewmodel
+package com.sarang.alarm.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sarang.screen_alarm2.AlarmUiState
+import com.sarang.alarm.uistate.AlarmUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

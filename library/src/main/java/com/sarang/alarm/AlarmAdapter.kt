@@ -1,8 +1,9 @@
-package com.sarang.screen_alarm2
+package com.sarang.alarm
 
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sarang.alarm.uistate.AlarmListItem
 
 internal class AlarmAdapter :
     RecyclerView.Adapter<AlarmViewHolder>() {

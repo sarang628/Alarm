@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.sarang.alarm_test_app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

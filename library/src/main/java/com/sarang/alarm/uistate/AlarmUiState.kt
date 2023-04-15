@@ -1,10 +1,11 @@
-package com.sarang.screen_alarm2
+package com.sarang.alarm.uistate
 
 data class AlarmUiState(
     val isRefreshing: Boolean,
     val list: List<AlarmListItem>,
     val errorMsg: String?,
-    val isLoaded: Boolean = false
+    val isLoaded: Boolean = false,
+    val isLogin: Boolean = false
 ) {
     fun hasAlarm(): Boolean {
         if (isLoaded && list.isEmpty()) {

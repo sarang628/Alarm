@@ -1,9 +1,10 @@
-package com.sarang.screen_alarm2
+package com.sarang.alarm
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.sarang.screen_alarm2.databinding.ItemAlarmBinding
+import com.sarang.alarm.databinding.ItemAlarmBinding
+import com.sarang.alarm.uistate.AlarmListItem
 
 internal class AlarmViewHolder(itemAlarmBinding: ItemAlarmBinding) :
     RecyclerView.ViewHolder(itemAlarmBinding.root) {

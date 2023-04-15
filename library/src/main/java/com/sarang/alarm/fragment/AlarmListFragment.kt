@@ -1,6 +1,5 @@
-package com.sarang.screen_alarm2.fragment
+package com.sarang.alarm.fragment
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.sarang.screen_alarm2.AlarmAdapter
-import com.sarang.screen_alarm2.R
-import com.sarang.screen_alarm2.databinding.FragmentAlarmListBinding
-import com.sarang.screen_alarm2.viewmodel.TestAlarmViewModel
+import com.sarang.alarm.AlarmAdapter
+import com.sarang.alarm.R
+import com.sarang.alarm.databinding.FragmentAlarmListBinding
+import com.sarang.alarm.viewmodel.TestAlarmViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,10 +20,6 @@ open class AlarmListFragment : Fragment() {
 
     /** 알림 뷰모델  */
     private val viewModel: TestAlarmViewModel by viewModels()
-
-    /** 알람 내비게이션 */
-//    @Inject
-//    lateinit var loginNavigation: LoginNavigation
 
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -39,9 +33,6 @@ open class AlarmListFragment : Fragment() {
         // 뷰 초기화
         initView(binding)
 
-        // 스와이프 레이아웃 리프레시
-        binding.slAlarm.setOnRefreshListener { viewModel.loadAlarms() }
-
         // 뷰모델 구독
         subScribeViewModel(viewModel, binding)
 
@@ -52,20 +43,10 @@ open class AlarmListFragment : Fragment() {
         swipeRefreshLayout = binding.slAlarm
         binding.lifecycleOwner = viewLifecycleOwner
         binding.rvAlarm.adapter = AlarmAdapter()
-        binding.rvAlarm.addItemDecoration(object : RecyclerView.ItemDecoration() {
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
-            ) {
-                super.getItemOffsets(outRect, view, parent, state)
-                outRect.top = 16
-                outRect.bottom = 16
-                outRect.left = 8
-                outRect.right = 8
-            }
-        })
+        binding.rvAlarm.addItemDecoration(AlarmRecyclerViewItemDecoration())
+
+        // 스와이프 레이아웃 리프레시
+        binding.slAlarm.setOnRefreshListener { viewModel.loadAlarms() }
     }
 
     private fun subScribeViewModel(

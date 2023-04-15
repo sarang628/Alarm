@@ -7,7 +7,7 @@
 
         <variable
             name="uiState"
-            type="com.sarang.screen_alarm2.AlarmUiState" />
+            type="com.sarang.alarm.uistate.AlarmUiState" />
 
         <import type="android.view.View" />
     </data>

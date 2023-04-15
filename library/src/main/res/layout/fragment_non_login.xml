@@ -2,21 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.sarang.screen_alarm2.viewmodel.AlarmViewModel" />
-
-        <import type="android.view.View" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-<!--android:onClick="@{()->loginNavigation.goLogin(context)}"-->
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
