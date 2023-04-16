@@ -1,4 +1,4 @@
-package com.sarang.alarm.fragment
+package com.sarang.alarm.recyclerview
 
 import android.graphics.Rect
 import android.view.View

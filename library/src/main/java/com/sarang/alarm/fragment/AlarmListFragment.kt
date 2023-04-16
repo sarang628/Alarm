@@ -6,68 +6,98 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.sarang.alarm.AlarmAdapter
-import com.sarang.alarm.R
+import androidx.lifecycle.LiveData
 import com.sarang.alarm.databinding.FragmentAlarmListBinding
-import com.sarang.alarm.viewmodel.TestAlarmViewModel
+import com.sarang.alarm.recyclerview.AlarmAdapter
+import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
+import com.sarang.alarm.uistate.testRefreshing1
 import dagger.hilt.android.AndroidEntryPoint
+
+/** 알림 UiState */
+data class AlarmUiState(
+    val isRefreshing: Boolean = false,
+    val list: List<AlarmListItem> = ArrayList(),
+    val errorMsg: String? = null,
+    val isLoaded: Boolean = false,
+    val isLogin: Boolean = false
+) {
+    fun hasAlarm(): Boolean {
+        if (isLoaded && list.isEmpty()) {
+            return false
+        }
+        return true
+    }
+}
+
+/** 알림 리스트 데이터 */
+data class AlarmListItem(
+    val id: Int,
+    val contents: String,
+    val otherPictureUrl: String,
+    val createDate: String
+)
 
 @AndroidEntryPoint
 open class AlarmListFragment : Fragment() {
 
-    /** 알림 뷰모델  */
-    private val viewModel: TestAlarmViewModel by viewModels()
+    lateinit var viewDataBinding: FragmentAlarmListBinding
 
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    val TAG = "AlarmListFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
-
+        viewDataBinding = FragmentAlarmListBinding.inflate(layoutInflater, container, false)
         // 뷰 초기화
-        initView(binding)
+        initView(viewDataBinding)
 
-        // 뷰모델 구독
-        subScribeViewModel(viewModel, binding)
+        return viewDataBinding.root
+    }
 
-        return binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        observeUiState(
+            testRefreshing1(viewLifecycleOwner), viewDataBinding
+        )
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun initView(binding: FragmentAlarmListBinding) {
-        swipeRefreshLayout = binding.slAlarm
         binding.lifecycleOwner = viewLifecycleOwner
+
+        // 리사이클러뷰 설정
         binding.rvAlarm.adapter = AlarmAdapter()
         binding.rvAlarm.addItemDecoration(AlarmRecyclerViewItemDecoration())
 
         // 스와이프 레이아웃 리프레시
-        binding.slAlarm.setOnRefreshListener { viewModel.loadAlarms() }
+        binding.slAlarm.setOnRefreshListener {
+            //TODO:: 알림 갱신
+        }
     }
 
-    private fun subScribeViewModel(
-        viewModel: TestAlarmViewModel,
+    private fun observeUiState(
+        alarmUiState: LiveData<AlarmUiState>,
         binding: FragmentAlarmListBinding
     ) {
-        viewModel.alarmUiState.observe(viewLifecycleOwner) { uiState ->
-            Log.i("AlarmListFragment", uiState.toString())
-
-            binding.uiState = uiState
+        alarmUiState.observe(viewLifecycleOwner) { uiState ->
+            Log.i(TAG, uiState.toString())
+            // 스와이프 리프레시 상태 변경
             binding.slAlarm.isRefreshing = uiState.isRefreshing
 
-            //새로 받은 알람 설정
-            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.list)
-        }
+            // 리사이클러뷰 보여주는 유무
+            binding.rvAlarm.visibility = if (uiState.hasAlarm()) View.VISIBLE else View.GONE
 
-        viewModel.isLogin.observe(viewLifecycleOwner) {
-            if (!it) {
-                findNavController().navigate(R.id.nonLoginFragment)
+            // 텍스트 보여주는 유무
+            binding.tvEmpty.visibility = if (uiState.hasAlarm()) View.GONE else View.VISIBLE
+
+            // 새로 받은 알람 설정
+            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.list)
+
+            // 비 로그인 상태라면 화면이동
+            if (!uiState.isLogin) {
+                //findNavController().navigate(R.id.nonLoginFragment)
             }
         }
     }
-
 }

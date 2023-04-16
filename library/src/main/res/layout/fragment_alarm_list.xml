@@ -3,20 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="uiState"
-            type="com.sarang.alarm.uistate.AlarmUiState" />
-
-        <import type="android.view.View" />
-    </data>
-
+    <!-- parent layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".fragment.AlarmListFragment">
 
+        <!--   스와이프 갱신 레이아웃  -->
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/sl_alarm"
             android:layout_width="0dp"
@@ -27,21 +20,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <!--   알림 리스트    -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_alarm"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{uiState.hasAlarm() ? View.VISIBLE : View.GONE}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_alarm" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <!--  알림 없을 때 표시하는 문구  -->
         <TextView
+            android:id="@+id/tv_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="알림이 없습니다."
-            android:visibility="@{uiState.hasAlarm() ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
