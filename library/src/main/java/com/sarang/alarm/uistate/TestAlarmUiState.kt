@@ -1,12 +1,10 @@
 package com.sarang.alarm.uistate
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.sarang.alarm.fragment.AlarmUiState
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -21,15 +19,28 @@ fun testRefreshing(): LiveData<AlarmUiState> {
 
 fun testRefreshing1(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
     val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
-
     lifecycleOwner.lifecycleScope.launch {
         while (true) {
             delay(2000)
+            val alarmUiState = data.value!!
             data.postValue(
-                data.value!!.copy(isRefreshing = !data.value!!.isRefreshing)
+                alarmUiState.copy(isRefreshing = !alarmUiState.isRefreshing)
             )
         }
     }
+    return data
+}
 
+fun testErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
+    val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
+    lifecycleOwner.lifecycleScope.launch {
+        while (true) {
+            delay(2000)
+            val alarmUiState = data.value!!
+            data.postValue(
+                alarmUiState.copy(errorMsg = "오류가 발생하였습니다.")
+            )
+        }
+    }
     return data
 }

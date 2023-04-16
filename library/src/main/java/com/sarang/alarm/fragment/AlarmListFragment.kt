@@ -1,5 +1,7 @@
 package com.sarang.alarm.fragment
 
+import android.app.AlertDialog
+import android.app.UiAutomation
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +12,7 @@ import androidx.lifecycle.LiveData
 import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
+import com.sarang.alarm.uistate.testErrorMsg
 import com.sarang.alarm.uistate.testRefreshing1
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,7 +61,7 @@ open class AlarmListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testRefreshing1(viewLifecycleOwner), viewDataBinding
+            testErrorMsg(viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }
@@ -97,6 +100,12 @@ open class AlarmListFragment : Fragment() {
             // 비 로그인 상태라면 화면이동
             if (!uiState.isLogin) {
                 //findNavController().navigate(R.id.nonLoginFragment)
+            }
+
+            uiState.errorMsg?.let {
+                AlertDialog.Builder(context)
+                    .setMessage(it)
+                    .show()
             }
         }
     }
