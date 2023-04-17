@@ -44,3 +44,27 @@ fun testErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
     }
     return data
 }
+
+fun testRefreshingAfterErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
+    val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
+    lifecycleOwner.lifecycleScope.launch {
+        while (true) {
+            delay(1000)
+            data.postValue(
+                AlarmUiState(isRefreshing = true)
+            )
+            delay(2000)
+            data.postValue(
+                AlarmUiState(isRefreshing = false)
+            )
+            data.postValue(
+                AlarmUiState(errorMsg = "오류가 발생하였습니다.")
+            )
+            delay(2000)
+            data.postValue(
+                AlarmUiState()
+            )
+        }
+    }
+    return data
+}

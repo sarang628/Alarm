@@ -2,6 +2,7 @@ package com.sarang.alarm.fragment
 
 import android.app.AlertDialog
 import android.app.UiAutomation
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.testErrorMsg
 import com.sarang.alarm.uistate.testRefreshing1
+import com.sarang.alarm.uistate.testRefreshingAfterErrorMsg
 import dagger.hilt.android.AndroidEntryPoint
 
 /** 알림 UiState */
@@ -43,9 +45,10 @@ data class AlarmListItem(
 @AndroidEntryPoint
 open class AlarmListFragment : Fragment() {
 
+    val TAG = "AlarmListFragment"
+
     lateinit var viewDataBinding: FragmentAlarmListBinding
 
-    val TAG = "AlarmListFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +64,7 @@ open class AlarmListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testErrorMsg(viewLifecycleOwner), viewDataBinding
+            testRefreshingAfterErrorMsg(viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }
@@ -83,6 +86,11 @@ open class AlarmListFragment : Fragment() {
         alarmUiState: LiveData<AlarmUiState>,
         binding: FragmentAlarmListBinding
     ) {
+        val alertDialog: AlertDialog = activity.let {
+            val builder = AlertDialog.Builder(it)
+            builder.create()
+        }
+
         alarmUiState.observe(viewLifecycleOwner) { uiState ->
             Log.i(TAG, uiState.toString())
             // 스와이프 리프레시 상태 변경
@@ -102,10 +110,14 @@ open class AlarmListFragment : Fragment() {
                 //findNavController().navigate(R.id.nonLoginFragment)
             }
 
-            uiState.errorMsg?.let {
-                AlertDialog.Builder(context)
-                    .setMessage(it)
-                    .show()
+            if (uiState.errorMsg != null) {
+                if (!alertDialog.isShowing) {
+                    alertDialog.setMessage(uiState.errorMsg)
+                    alertDialog.show()
+                }
+            } else {
+                if (alertDialog.isShowing)
+                    alertDialog.dismiss()
             }
         }
     }
