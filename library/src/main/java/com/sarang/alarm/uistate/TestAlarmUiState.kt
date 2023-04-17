@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import com.sarang.alarm.fragment.AlarmListItem
 import com.sarang.alarm.fragment.AlarmUiState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,6 +46,9 @@ fun testErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
     return data
 }
 
+/**
+ * 리프레시 후 오류 발생 테스트
+ */
 fun testRefreshingAfterErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
     val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
     lifecycleOwner.lifecycleScope.launch {
@@ -68,3 +72,55 @@ fun testRefreshingAfterErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmU
     }
     return data
 }
+
+fun testAlarmList(lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
+    val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
+    lifecycleOwner.lifecycleScope.launch {
+        delay(1000)
+        data.postValue(
+            AlarmUiState(isRefreshing = true)
+        )
+        delay(2000)
+        data.postValue(
+            AlarmUiState(list = getTestAlarmList())
+        )
+    }
+    return data
+}
+
+fun getTestAlarmList(): ArrayList<AlarmListItem> {
+    return ArrayList<AlarmListItem>().apply {
+        add(
+            AlarmListItem(
+                0, "리사님이 이 포스트를 좋아합니다.", "2", "1분 전"
+            )
+        )
+        add(
+            AlarmListItem(
+                0, "리사님이 이 포스트를 좋아합니다.", "2", "5분 전"
+            )
+        )
+        add(
+            AlarmListItem(
+                0, "리사님이 이 포스트를 좋아합니다.", "2", "1시간 전"
+            )
+        )
+        add(
+            AlarmListItem(
+                0, "리사님이 이 포스트를 좋아합니다.", "2", "6시간 전"
+            )
+        )
+        add(
+            AlarmListItem(
+                0, "리사님이 이 포스트를 좋아합니다.", "2", "어제"
+            )
+        )
+    }
+}
+
+
+
+
+
+
+

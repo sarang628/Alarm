@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
+import com.sarang.alarm.uistate.testAlarmList
 import com.sarang.alarm.uistate.testErrorMsg
 import com.sarang.alarm.uistate.testRefreshing1
 import com.sarang.alarm.uistate.testRefreshingAfterErrorMsg
@@ -64,7 +65,7 @@ open class AlarmListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testRefreshingAfterErrorMsg(viewLifecycleOwner), viewDataBinding
+            testAlarmList(viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }
