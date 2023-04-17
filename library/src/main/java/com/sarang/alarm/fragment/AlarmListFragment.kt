@@ -65,7 +65,7 @@ open class AlarmListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testAlarmList(viewLifecycleOwner), viewDataBinding
+            testAlarmList(requireContext(), viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }

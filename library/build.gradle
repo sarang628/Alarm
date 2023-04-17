@@ -64,4 +64,6 @@ dependencies {
     annotationProcessor "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
