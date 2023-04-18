@@ -1,3 +1,3 @@
-rootProject.name = "My Application"
+rootProject.name = "AlarmTestApplication"
 include ':app'
 include ':library'

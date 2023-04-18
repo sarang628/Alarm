@@ -1,8 +1,6 @@
 package com.sarang.alarm.fragment
 
 import android.app.AlertDialog
-import android.app.UiAutomation
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,10 +12,8 @@ import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.testAlarmList
-import com.sarang.alarm.uistate.testErrorMsg
-import com.sarang.alarm.uistate.testRefreshing1
-import com.sarang.alarm.uistate.testRefreshingAfterErrorMsg
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.DayOfWeek
 
 /** 알림 UiState */
 data class AlarmUiState(
@@ -33,14 +29,23 @@ data class AlarmUiState(
         }
         return true
     }
+
+    fun getAddedIndexList(): List<AlarmListItem> {
+        val list1: ArrayList<AlarmListItem> = ArrayList<AlarmListItem>().apply {
+            add(AlarmListItem(indexDate = "오늘"))
+            addAll(list)
+        }
+        return list1
+    }
 }
 
 /** 알림 리스트 데이터 */
 data class AlarmListItem(
-    val id: Int,
-    val contents: String,
-    val otherPictureUrl: String,
-    val createDate: String
+    val id: Int = 0,
+    val contents: String = "",
+    val otherPictureUrl: String = "",
+    val createdDate: String = "",
+    val indexDate: String = ""
 )
 
 @AndroidEntryPoint
@@ -77,6 +82,7 @@ open class AlarmListFragment : Fragment() {
         binding.rvAlarm.adapter = AlarmAdapter()
         binding.rvAlarm.addItemDecoration(AlarmRecyclerViewItemDecoration())
 
+
         // 스와이프 레이아웃 리프레시
         binding.slAlarm.setOnRefreshListener {
             //TODO:: 알림 갱신
@@ -104,7 +110,7 @@ open class AlarmListFragment : Fragment() {
             binding.tvEmpty.visibility = if (uiState.hasAlarm()) View.GONE else View.VISIBLE
 
             // 새로 받은 알람 설정
-            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.list)
+            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.getAddedIndexList())
 
             // 비 로그인 상태라면 화면이동
             if (!uiState.isLogin) {
