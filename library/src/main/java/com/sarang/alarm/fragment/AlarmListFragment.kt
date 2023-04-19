@@ -1,17 +1,20 @@
 package com.sarang.alarm.fragment
 
 import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.testAlarmList
+import com.sarang.alarm.util.divide
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.DayOfWeek
 
@@ -30,12 +33,9 @@ data class AlarmUiState(
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun getAddedIndexList(): List<AlarmListItem> {
-        val list1: ArrayList<AlarmListItem> = ArrayList<AlarmListItem>().apply {
-            add(AlarmListItem(indexDate = "오늘"))
-            addAll(list)
-        }
-        return list1
+        return divide(list)
     }
 }
 
@@ -68,6 +68,7 @@ open class AlarmListFragment : Fragment() {
         return viewDataBinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
             testAlarmList(requireContext(), viewLifecycleOwner), viewDataBinding
@@ -89,6 +90,7 @@ open class AlarmListFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun observeUiState(
         alarmUiState: LiveData<AlarmUiState>,
         binding: FragmentAlarmListBinding

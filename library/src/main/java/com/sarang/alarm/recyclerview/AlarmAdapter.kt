@@ -20,6 +20,9 @@ internal class AlarmAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (holder is AlarmViewHolder)
             holder.setAlarm(alarms[position])
+        else if(holder is AlarmIndexViewHolder){
+            holder.setAlarm(alarms[position].indexDate)
+        }
     }
 
     override fun getItemCount(): Int {

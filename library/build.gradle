@@ -28,6 +28,7 @@ android {
         dataBinding true
         viewBinding true
     }
+    namespace 'com.sarang.alarm'
 
 }
 
