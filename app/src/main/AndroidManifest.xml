@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:name=".AlarmTestApplication"
-        android:theme="@style/Theme.AppCompat.DayNight">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -1,56 +1,92 @@
 [
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
-    "createdDate": "2023-04-19"
+    "createdDate": "2023-04-19",
+    "user" : {
+      "name" : "제니"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
-    "createdDate": "2023-04-18"
+    "createdDate": "2023-04-18",
+    "user" : {
+      "name" : "라리사"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/2.png",
-    "createdDate": "2023-04-17"
+    "createdDate": "2023-04-17",
+    "user" : {
+      "name" : "로제"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/3.png",
-    "createdDate": "2023-04-16"
+    "createdDate": "2023-04-16",
+    "user" : {
+      "name" : "김지수"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/4.png",
-    "createdDate": "2023-04-14"
+    "createdDate": "2023-04-14",
+    "user" : {
+      "name" : "하니"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/5.png",
-    "createdDate": "2023-04-10"
+    "createdDate": "2023-04-10",
+    "user" : {
+      "name" : "다니엘"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/6.png",
-    "createdDate": "2023-04-01"
+    "createdDate": "2023-04-01",
+    "user" : {
+      "name" : "소피"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/7.png",
-    "createdDate": "2023-03-01"
+    "createdDate": "2023-03-01",
+    "user" : {
+      "name" : "복서"
+    }
   },
   {
     "id": 0,
+    "type": "LIKE",
     "contents": "리사님이 이 포스트를 좋아합니다.",
     "otherPictureUrl": "http://sarang628.iptime.org:88/8.png",
-    "createdDate": "2023-01-01"
+    "createdDate": "2023-01-01",
+    "user" : {
+      "name" : "벤자민"
+    }
   }
 ]

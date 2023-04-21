@@ -3,6 +3,9 @@ package com.sarang.alarm.fragment
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +19,6 @@ import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.testAlarmList
 import com.sarang.alarm.util.divide
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.DayOfWeek
 
 /** 알림 UiState */
 data class AlarmUiState(
@@ -42,11 +44,54 @@ data class AlarmUiState(
 /** 알림 리스트 데이터 */
 data class AlarmListItem(
     val id: Int = 0,
+    val user: User? = null,
     val contents: String = "",
     val otherPictureUrl: String = "",
     val createdDate: String = "",
-    val indexDate: String = ""
+    val indexDate: String = "",
+    val type: AlarmType? = null
+) {
+    fun toTextViewMessage(): SpannableString {
+
+        if(user == null)
+            return SpannableString("")
+
+        val userName = user.name
+        val sb = StringBuffer();
+        sb.append(userName)
+        sb.append("님이")
+        val startIndex = sb.length
+        sb.append("이 포스트")
+        val lastIndex = sb.length
+        sb.append("좋아합니다.")
+
+
+        val span1 = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+
+            }
+        }
+        val span2 = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+
+            }
+        }
+        var sp = SpannableString(sb.toString());
+        sp.setSpan(span1, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(span2, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        return sp
+    }
+}
+
+data class User(
+    val name: String
 )
+
+enum class AlarmType {
+    LIKE
+}
 
 @AndroidEntryPoint
 open class AlarmListFragment : Fragment() {

@@ -78,64 +78,6 @@ fun testRefreshingAfterErrorMsg(lifecycleOwner: LifecycleOwner): LiveData<AlarmU
     return data
 }
 
-fun testAlarmList(context: Context, lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
-    val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
-    lifecycleOwner.lifecycleScope.launch {
-        delay(1000)
-        data.postValue(
-            AlarmUiState(isRefreshing = true)
-        )
-        delay(2000)
-        data.postValue(
-            AlarmUiState(list = getTestAlarmListByFile(context))
-        )
-    }
-    return data
-}
-
-fun getTestAlarmListByFile(context: Context): List<AlarmListItem> {
-    val inputStream = context.assets.open("alarmList.json")
-    val inputStreamReader = InputStreamReader(inputStream)
-    val bufferReader = BufferedReader(inputStreamReader)
-
-    val gson = Gson();
-    val list = gson.fromJson<List<AlarmListItem>>(
-        bufferReader,
-        object : TypeToken<List<AlarmListItem>>() {}.type
-    )
-    return list
-}
-
-fun getTestAlarmList(): ArrayList<AlarmListItem> {
-    return ArrayList<AlarmListItem>().apply {
-        add(
-            AlarmListItem(
-                0, "리사님이 이 포스트를 좋아합니다.", "2", "1분 전"
-            )
-        )
-        add(
-            AlarmListItem(
-                0, "리사님이 이 포스트를 좋아합니다.", "2", "5분 전"
-            )
-        )
-        add(
-            AlarmListItem(
-                0, "리사님이 이 포스트를 좋아합니다.", "2", "1시간 전"
-            )
-        )
-        add(
-            AlarmListItem(
-                0, "리사님이 이 포스트를 좋아합니다.", "2", "6시간 전"
-            )
-        )
-        add(
-            AlarmListItem(
-                0, "리사님이 이 포스트를 좋아합니다.", "2", "어제"
-            )
-        )
-    }
-}
-
 
 
 

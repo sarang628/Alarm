@@ -37,7 +37,7 @@
             android:layout_marginLeft="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="@{alarm.contents}"
+            android:text="@{alarm.toTextViewMessage()}"
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar"
