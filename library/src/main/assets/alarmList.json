@@ -3,7 +3,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
-    "createdDate": "2023-04-21",
+    "createdDate": "2023-04-21 20:22:30",
     "user": {
       "name": "제니"
     },
@@ -15,7 +15,7 @@
     "id": 0,
     "type": "REPLY",
     "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
-    "createdDate": "2023-04-18",
+    "createdDate": "2023-04-18 20:25:30",
     "user": {
       "name": "라리사"
     },
@@ -27,7 +27,7 @@
     "id": 0,
     "type": "FOLLOW",
     "otherPictureUrl": "http://sarang628.iptime.org:88/2.png",
-    "createdDate": "2023-04-17",
+    "createdDate": "2023-04-17 10:15:12",
     "user": {
       "name": "로제"
     }
@@ -36,7 +36,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/3.png",
-    "createdDate": "2023-04-16",
+    "createdDate": "2023-04-16 10:15:12",
     "user": {
       "name": "김지수"
     }
@@ -45,7 +45,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/4.png",
-    "createdDate": "2023-04-14",
+    "createdDate": "2023-04-14 10:15:12",
     "user": {
       "name": "하니"
     }
@@ -54,7 +54,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/5.png",
-    "createdDate": "2023-04-10",
+    "createdDate": "2023-04-10 10:15:12",
     "user": {
       "name": "다니엘"
     }
@@ -63,7 +63,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/6.png",
-    "createdDate": "2023-04-01",
+    "createdDate": "2023-04-01 10:15:12",
     "user": {
       "name": "소피"
     }
@@ -72,7 +72,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/7.png",
-    "createdDate": "2023-03-01",
+    "createdDate": "2023-03-01 10:15:12",
     "user": {
       "name": "복서"
     }
@@ -81,7 +81,7 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/8.png",
-    "createdDate": "2023-01-01",
+    "createdDate": "2023-01-01 10:15:12",
     "user": {
       "name": "벤자민"
     }

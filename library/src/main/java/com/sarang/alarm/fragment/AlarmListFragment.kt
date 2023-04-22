@@ -20,6 +20,9 @@ import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.testAlarmList
 import com.sarang.alarm.util.divide
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 /** 알림 UiState */
 data class AlarmUiState(
@@ -52,14 +55,22 @@ data class AlarmListItem(
     val indexDate: String = "",
     val type: AlarmType? = null
 ) {
-    fun toTextViewMessage(clickUser : ClickableSpan, clickPost : ClickableSpan): SpannableString {
+    fun toTextViewMessage(clickUser: ClickableSpan, clickPost: ClickableSpan): SpannableString {
         if (user == null)
             return SpannableString("")
 
         return when (type) {
-            AlarmType.LIKE -> getLikeMessage(userName = user.name, clickUser=clickUser, clickPost = clickPost)
-            AlarmType.REPLY -> getReplyMessage(userName = user.name, clickUser=clickUser, clickPost = clickPost)
-            AlarmType.FOLLOW -> getFollowMessage(userName = user.name, clickUser=clickUser)
+            AlarmType.LIKE -> getLikeMessage(
+                userName = user.name,
+                clickUser = clickUser,
+                clickPost = clickPost
+            )
+            AlarmType.REPLY -> getReplyMessage(
+                userName = user.name,
+                clickUser = clickUser,
+                clickPost = clickPost
+            )
+            AlarmType.FOLLOW -> getFollowMessage(userName = user.name, clickUser = clickUser)
             else -> SpannableString("")
         }
     }
@@ -111,6 +122,19 @@ data class AlarmListItem(
         var sp = SpannableString(sb.toString());
         sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return sp
+    }
+
+    fun transformDate(): String {
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val diff = (System.currentTimeMillis() - sdf.parse(createdDate).time) / 1000
+        Log.d("test", (diff / (360)).toString())
+        if (diff / 360 < 24) {
+            return "" + (diff / (360)) + "시간 전"
+        } else if (diff / 360 > 24 && diff / 360 < (24 * 7)) {
+            return "" + (diff / (360 * 24)) + "일 전"
+        } else {
+            return "" + (diff / (360 * 24 * 7)) + "주 전"
+        }
     }
 }
 
