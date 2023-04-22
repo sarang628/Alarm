@@ -1,12 +1,16 @@
 package com.sarang.alarm.recyclerview
 
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.sarang.alarm.fragment.AlarmListItem
 
-internal class AlarmAdapter :
+internal class AlarmAdapter constructor(
+    val clickUser: ClickableSpan,
+    val clickPost: ClickableSpan
+) :
     RecyclerView.Adapter<ViewHolder>() {
     private var alarms: List<AlarmListItem> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,9 +22,11 @@ internal class AlarmAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (holder is AlarmViewHolder)
+        if (holder is AlarmViewHolder) {
             holder.setAlarm(alarms[position])
-        else if(holder is AlarmIndexViewHolder){
+            holder.itemAlarmBinding.tvContents.text =
+                alarms[position].toTextViewMessage(clickUser = clickUser, clickPost = clickPost)
+        } else if (holder is AlarmIndexViewHolder) {
             holder.setAlarm(alarms[position].indexDate)
         }
     }

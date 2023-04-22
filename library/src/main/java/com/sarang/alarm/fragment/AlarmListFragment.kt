@@ -51,64 +51,64 @@ data class AlarmListItem(
     val indexDate: String = "",
     val type: AlarmType? = null
 ) {
-    fun toTextViewMessage(): SpannableString {
+    fun toTextViewMessage(clickUser : ClickableSpan, clickPost : ClickableSpan): SpannableString {
         if (user == null)
             return SpannableString("")
 
         return when (type) {
-            AlarmType.LIKE -> getLikeMessage(userName = user.name)
-            AlarmType.REPLY -> getReplyMessage(userName = user.name)
-            AlarmType.FOLLOW -> getFollowMessage(userName = user.name)
+            AlarmType.LIKE -> getLikeMessage(userName = user.name, clickUser=clickUser, clickPost = clickPost)
+            AlarmType.REPLY -> getReplyMessage(userName = user.name, clickUser=clickUser, clickPost = clickPost)
+            AlarmType.FOLLOW -> getFollowMessage(userName = user.name, clickUser=clickUser)
             else -> SpannableString("")
         }
     }
 
     fun getLikeMessage(
         userName: String,
-        userClick: ClickableSpan? = null,
-        postClick: ClickableSpan? = null
+        clickUser: ClickableSpan? = null,
+        clickPost: ClickableSpan? = null
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)
-        sb.append("님이")
+        sb.append("님이 ")
         val startIndex = sb.length
         sb.append("이 포스트")
         val lastIndex = sb.length
-        sb.append("좋아합니다.")
+        sb.append("를 좋아합니다.")
         var sp = SpannableString(sb.toString());
-        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        sp.setSpan(postClick, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(clickPost, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return sp
     }
 
     fun getReplyMessage(
         userName: String,
-        userClick: ClickableSpan? = null,
-        postClick: ClickableSpan? = null
+        clickUser: ClickableSpan? = null,
+        clickPost: ClickableSpan? = null
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)
-        sb.append("님이")
+        sb.append("님이 ")
         val startIndex = sb.length
         sb.append("이 포스트")
         val lastIndex = sb.length
         sb.append("에 댓글을 달았습니다.")
         var sp = SpannableString(sb.toString());
-        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        sp.setSpan(postClick, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(clickPost, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return sp
     }
 
     fun getFollowMessage(
         userName: String,
-        userClick: ClickableSpan? = null
+        clickUser: ClickableSpan? = null
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)
         sb.append("님이")
-        sb.append("팔로우 하였습니다.")
+        sb.append(" 팔로우 하였습니다.")
         var sp = SpannableString(sb.toString());
-        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return sp
     }
 }
@@ -155,7 +155,16 @@ open class AlarmListFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // 리사이클러뷰 설정
-        binding.rvAlarm.adapter = AlarmAdapter()
+        binding.rvAlarm.adapter = AlarmAdapter(
+            clickUser = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                }
+            },
+            clickPost = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                }
+            }
+        )
         binding.rvAlarm.addItemDecoration(AlarmRecyclerViewItemDecoration())
 
 

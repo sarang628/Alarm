@@ -8,7 +8,7 @@ import com.sarang.alarm.fragment.AlarmListItem
 
 internal class AlarmViewHolder(itemAlarmBinding: ItemAlarmBinding) :
     RecyclerView.ViewHolder(itemAlarmBinding.root) {
-    private val itemAlarmBinding: ItemAlarmBinding?
+    var itemAlarmBinding: ItemAlarmBinding
     fun setAlarm(alarm: AlarmListItem?) {
         if (itemAlarmBinding != null) itemAlarmBinding.alarm = alarm
     }
