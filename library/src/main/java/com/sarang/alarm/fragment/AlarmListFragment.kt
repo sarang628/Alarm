@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -158,11 +159,16 @@ open class AlarmListFragment : Fragment() {
         binding.rvAlarm.adapter = AlarmAdapter(
             clickUser = object : ClickableSpan() {
                 override fun onClick(widget: View) {
+                    Toast.makeText(requireContext(), "clickUser", Toast.LENGTH_SHORT).show()
                 }
             },
             clickPost = object : ClickableSpan() {
                 override fun onClick(widget: View) {
+                    Toast.makeText(requireContext(), "clickPost", Toast.LENGTH_SHORT).show()
                 }
+            },
+            clickImage = {
+                Toast.makeText(requireContext(), "clickImage", Toast.LENGTH_SHORT).show()
             }
         )
         binding.rvAlarm.addItemDecoration(AlarmRecyclerViewItemDecoration())

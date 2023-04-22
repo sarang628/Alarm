@@ -1,7 +1,9 @@
 package com.sarang.alarm.recyclerview
 
+import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -9,7 +11,8 @@ import com.sarang.alarm.fragment.AlarmListItem
 
 internal class AlarmAdapter constructor(
     val clickUser: ClickableSpan,
-    val clickPost: ClickableSpan
+    val clickPost: ClickableSpan,
+    val clickImage: OnClickListener? = null
 ) :
     RecyclerView.Adapter<ViewHolder>() {
     private var alarms: List<AlarmListItem> = ArrayList()
@@ -26,6 +29,10 @@ internal class AlarmAdapter constructor(
             holder.setAlarm(alarms[position])
             holder.itemAlarmBinding.tvContents.text =
                 alarms[position].toTextViewMessage(clickUser = clickUser, clickPost = clickPost)
+            holder.itemAlarmBinding.tvContents.movementMethod = LinkMovementMethod.getInstance()
+
+            holder.itemAlarmBinding.ivProfile.setOnClickListener(clickImage)
+
         } else if (holder is AlarmIndexViewHolder) {
             holder.setAlarm(alarms[position].indexDate)
         }

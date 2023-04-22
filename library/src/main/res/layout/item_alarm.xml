@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/iv_profile"
             loadCircleImage="@{alarm.otherPictureUrl}"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -40,7 +40,7 @@
             android:textColor="@android:color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/toolbar"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toEndOf="@+id/iv_profile"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="김제니 님이 좋아요를 눌렀습니다." />
 
