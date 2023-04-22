@@ -41,8 +41,34 @@ fun getTestAlarmListByFile(context: Context): List<AlarmListItem> {
 }
 
 
-
-
+fun testAlarmList1(context: Context, lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
+    val data: MutableLiveData<AlarmUiState> = MutableLiveData(AlarmUiState())
+    lifecycleOwner.lifecycleScope.launch {
+        while (true) {
+            delay(2000)
+            data.postValue(
+                AlarmUiState(isRefreshing = true)
+            )
+            delay(2000)
+            data.postValue(
+                AlarmUiState(list = getTestAlarmListByFile(context))
+            )
+            delay(2000)
+            data.postValue(
+                data.value!!.copy(isRefreshing = true)
+            )
+            delay(2000)
+            data.postValue(
+                AlarmUiState(isRefreshing = false)
+            )
+            data.postValue(
+                AlarmUiState(errorMsg = "오류가 발생하였습니다.")
+            )
+            delay(2000)
+        }
+    }
+    return data
+}
 
 
 

@@ -3,8 +3,6 @@ package com.sarang.alarm.fragment
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,17 +12,15 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.AlarmUiState
-import com.sarang.alarm.uistate.testAlarmList
-import com.sarang.alarm.util.divide
+import com.sarang.alarm.uistate.testAlarmList1
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 open class AlarmListFragment : Fragment() {
@@ -49,7 +45,7 @@ open class AlarmListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testAlarmList(requireContext(), viewLifecycleOwner), viewDataBinding
+            testAlarmList1(requireContext(), viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }
@@ -80,6 +76,20 @@ open class AlarmListFragment : Fragment() {
         binding.slAlarm.setOnRefreshListener {
             //TODO:: 알림 갱신
         }
+
+        // 리사이클러뷰 하단 도달 시 추가 알림 요청
+        binding.rvAlarm.addOnScrollListener(object : OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                if (
+                    !recyclerView.canScrollVertically(1)
+                    && newState == RecyclerView.SCROLL_STATE_IDLE
+                ) {
+                    Toast.makeText(requireContext(), "Last", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
