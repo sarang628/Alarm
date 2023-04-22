@@ -52,35 +52,63 @@ data class AlarmListItem(
     val type: AlarmType? = null
 ) {
     fun toTextViewMessage(): SpannableString {
-
-        if(user == null)
+        if (user == null)
             return SpannableString("")
 
-        val userName = user.name
-        val sb = StringBuffer();
+        return when (type) {
+            AlarmType.LIKE -> getLikeMessage(userName = user.name)
+            AlarmType.REPLY -> getReplyMessage(userName = user.name)
+            AlarmType.FOLLOW -> getFollowMessage(userName = user.name)
+            else -> SpannableString("")
+        }
+    }
+
+    fun getLikeMessage(
+        userName: String,
+        userClick: ClickableSpan? = null,
+        postClick: ClickableSpan? = null
+    ): SpannableString {
+        val sb = StringBuffer()
         sb.append(userName)
         sb.append("님이")
         val startIndex = sb.length
         sb.append("이 포스트")
         val lastIndex = sb.length
         sb.append("좋아합니다.")
-
-
-        val span1 = object : ClickableSpan() {
-            override fun onClick(p0: View) {
-
-            }
-        }
-        val span2 = object : ClickableSpan() {
-            override fun onClick(p0: View) {
-
-            }
-        }
         var sp = SpannableString(sb.toString());
-        sp.setSpan(span1, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        sp.setSpan(span2, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(postClick, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return sp
+    }
 
+    fun getReplyMessage(
+        userName: String,
+        userClick: ClickableSpan? = null,
+        postClick: ClickableSpan? = null
+    ): SpannableString {
+        val sb = StringBuffer()
+        sb.append(userName)
+        sb.append("님이")
+        val startIndex = sb.length
+        sb.append("이 포스트")
+        val lastIndex = sb.length
+        sb.append("에 댓글을 달았습니다.")
+        var sp = SpannableString(sb.toString());
+        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        sp.setSpan(postClick, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        return sp
+    }
 
+    fun getFollowMessage(
+        userName: String,
+        userClick: ClickableSpan? = null
+    ): SpannableString {
+        val sb = StringBuffer()
+        sb.append(userName)
+        sb.append("님이")
+        sb.append("팔로우 하였습니다.")
+        var sp = SpannableString(sb.toString());
+        sp.setSpan(userClick, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return sp
     }
 }
@@ -90,7 +118,9 @@ data class User(
 )
 
 enum class AlarmType {
-    LIKE
+    LIKE,
+    REPLY,
+    FOLLOW
 }
 
 @AndroidEntryPoint
