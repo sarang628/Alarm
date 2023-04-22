@@ -18,6 +18,7 @@ import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.AlarmUiState
+import com.sarang.alarm.uistate.testAlarmList
 import com.sarang.alarm.uistate.testAlarmList1
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -45,7 +46,7 @@ open class AlarmListFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeUiState(
-            testAlarmList1(requireContext(), viewLifecycleOwner), viewDataBinding
+            testAlarmList(requireContext(), viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }

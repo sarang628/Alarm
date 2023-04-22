@@ -116,23 +116,18 @@ data class AlarmListItem(
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val diff = Date(System.currentTimeMillis()).time - sdf.parse(createdDate).time
         val sb = StringBuilder()
-        Log.d("test",  TimeUnit.MILLISECONDS.toSeconds(diff).toString());
-        if (TimeUnit.MILLISECONDS.toSeconds(diff) < 60) {
+        if (diff < TimeUnit.MINUTES.toMillis(1)) {
             return TimeUnit.MILLISECONDS.toSeconds(diff).toString() + "초 전"
-        } else if (
-            TimeUnit.MILLISECONDS.toSeconds(diff) > 60
-            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60
+        } else if (diff > TimeUnit.MINUTES.toMillis(1)
+            && diff < TimeUnit.HOURS.toMillis(1)
         ) {
             return TimeUnit.MILLISECONDS.toMinutes(diff).toString() + "분 전"
-        } else if (
-            TimeUnit.MILLISECONDS.toSeconds(diff) > 60 * 60
-            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60 * 24
+        } else if (diff > TimeUnit.HOURS.toMillis(1)
+            && diff < TimeUnit.DAYS.toMillis(1)
         ) {
-            sb.append(
-                TimeUnit.MILLISECONDS.toHours(diff).toString() + "시간 전"
-            )
-        } else if (TimeUnit.MILLISECONDS.toSeconds(diff) > 60 * 60 * 24
-            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60 * 24 * 7
+            return TimeUnit.MILLISECONDS.toHours(diff).toString() + "시간 전"
+        } else if (diff > TimeUnit.DAYS.toMillis(1)
+            && diff < TimeUnit.DAYS.toMillis(7)
         ) {
             return TimeUnit.MILLISECONDS.toDays(diff).toString() + "일 전"
         }
