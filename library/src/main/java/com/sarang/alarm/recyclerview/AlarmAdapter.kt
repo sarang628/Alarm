@@ -7,7 +7,7 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.sarang.alarm.fragment.AlarmListItem
+import com.sarang.alarm.uistate.AlarmListItem
 
 internal class AlarmAdapter constructor(
     val clickUser: ClickableSpan,

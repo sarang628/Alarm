@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sarang.alarm.databinding.ItemIndexBinding
-import com.sarang.alarm.fragment.AlarmListItem
+import com.sarang.alarm.uistate.AlarmListItem
 
 internal class AlarmIndexViewHolder(itemIndexBinding: ItemIndexBinding) :
     RecyclerView.ViewHolder(itemIndexBinding.root) {

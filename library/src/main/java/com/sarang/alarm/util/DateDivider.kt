@@ -2,7 +2,7 @@ package com.sarang.alarm.util
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.sarang.alarm.fragment.AlarmListItem
+import com.sarang.alarm.uistate.AlarmListItem
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

@@ -11,7 +11,7 @@
 
         <variable
             name="alarm"
-            type="com.sarang.alarm.fragment.AlarmListItem" />
+            type="com.sarang.alarm.uistate.AlarmListItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
