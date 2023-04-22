@@ -3,7 +3,31 @@
     "id": 0,
     "type": "LIKE",
     "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
-    "createdDate": "2023-04-21 20:22:30",
+    "createdDate": "2023-04-22 02:15:00",
+    "user": {
+      "name": "제니"
+    },
+    "post": {
+      "id": 10
+    }
+  },
+  {
+    "id": 0,
+    "type": "LIKE",
+    "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
+    "createdDate": "2023-04-22 02:14:00",
+    "user": {
+      "name": "제니"
+    },
+    "post": {
+      "id": 10
+    }
+  },
+  {
+    "id": 0,
+    "type": "LIKE",
+    "otherPictureUrl": "http://sarang628.iptime.org:88/1.png",
+    "createdDate": "2023-04-20 20:22:30",
     "user": {
       "name": "제니"
     },

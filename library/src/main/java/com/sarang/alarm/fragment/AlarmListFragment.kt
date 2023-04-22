@@ -22,6 +22,7 @@ import com.sarang.alarm.util.divide
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 /** 알림 UiState */
@@ -126,15 +127,29 @@ data class AlarmListItem(
 
     fun transformDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val diff = (System.currentTimeMillis() - sdf.parse(createdDate).time) / 1000
-        Log.d("test", (diff / (360)).toString())
-        if (diff / 360 < 24) {
-            return "" + (diff / (360)) + "시간 전"
-        } else if (diff / 360 > 24 && diff / 360 < (24 * 7)) {
-            return "" + (diff / (360 * 24)) + "일 전"
-        } else {
-            return "" + (diff / (360 * 24 * 7)) + "주 전"
+        val diff = Date(System.currentTimeMillis()).time - sdf.parse(createdDate).time
+        val sb = StringBuilder()
+        Log.d("test",  TimeUnit.MILLISECONDS.toSeconds(diff).toString());
+        if (TimeUnit.MILLISECONDS.toSeconds(diff) < 60) {
+            return TimeUnit.MILLISECONDS.toSeconds(diff).toString() + "초 전"
+        } else if (
+            TimeUnit.MILLISECONDS.toSeconds(diff) > 60
+            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60
+        ) {
+            return TimeUnit.MILLISECONDS.toMinutes(diff).toString() + "분 전"
+        } else if (
+            TimeUnit.MILLISECONDS.toSeconds(diff) > 60 * 60
+            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60 * 24
+        ) {
+            sb.append(
+                TimeUnit.MILLISECONDS.toHours(diff).toString() + "시간 전"
+            )
+        } else if (TimeUnit.MILLISECONDS.toSeconds(diff) > 60 * 60 * 24
+            && TimeUnit.MILLISECONDS.toSeconds(diff) < 60 * 60 * 24 * 7
+        ) {
+            return TimeUnit.MILLISECONDS.toDays(diff).toString() + "일 전"
         }
+        return (TimeUnit.MILLISECONDS.toDays(diff) / 7).toString() + "주 전"
     }
 }
 
