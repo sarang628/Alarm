@@ -6,14 +6,12 @@ plugins {
 }
 
 android {
-    compileSdk 33
+    compileSdk rootProject.compileSdk
 
     defaultConfig {
-        applicationId "com.example.myapplication"
-        minSdk rootProject.minSdkVersion
-        targetSdk rootProject.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.example.torangscreenprofiletestapp"
+        minSdk rootProject.minSdk
+        targetSdk rootProject.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
