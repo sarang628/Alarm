@@ -4,9 +4,8 @@ import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
-import android.util.Log
 import androidx.annotation.RequiresApi
-import com.sarang.alarm.util.divide
+import com.sarang.alarm.util.convertDate
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -14,8 +13,11 @@ import kotlin.collections.ArrayList
 
 /** 알림 UiState */
 data class AlarmUiState(
+    // 스와이프 리프레시 갱신
     val isRefreshing: Boolean = false,
+    // 얼림 리스트
     val list: List<AlarmListItem> = ArrayList(),
+    // 에러메세지
     val errorMsg: String? = null,
     val isLoaded: Boolean = false,
     val isLogin: Boolean = false
@@ -27,9 +29,10 @@ data class AlarmUiState(
         return true
     }
 
+    //데이터 시, 분, 전 변환
     @RequiresApi(Build.VERSION_CODES.N)
-    fun getAddedIndexList(): List<AlarmListItem> {
-        return divide(list)
+    fun convertDate(): List<AlarmListItem> {
+        return convertDate(list)
     }
 }
 

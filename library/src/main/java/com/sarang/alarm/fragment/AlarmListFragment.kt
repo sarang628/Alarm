@@ -18,8 +18,7 @@ import com.sarang.alarm.databinding.FragmentAlarmListBinding
 import com.sarang.alarm.recyclerview.AlarmAdapter
 import com.sarang.alarm.recyclerview.AlarmRecyclerViewItemDecoration
 import com.sarang.alarm.uistate.AlarmUiState
-import com.sarang.alarm.uistate.testAlarmList
-import com.sarang.alarm.uistate.testAlarmList1
+import com.sarang.alarm.uistate.testAlarmUiState
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
@@ -45,8 +44,11 @@ open class AlarmListFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        observeUiState(
+        /*observeUiState(
             testAlarmList(requireContext(), viewLifecycleOwner), viewDataBinding
+        )*/
+        observeUiState(
+            testAlarmUiState(requireContext(), viewLifecycleOwner), viewDataBinding
         )
         super.onViewCreated(view, savedInstanceState)
     }
@@ -115,7 +117,7 @@ open class AlarmListFragment : Fragment() {
             binding.tvEmpty.visibility = if (uiState.hasAlarm()) View.GONE else View.VISIBLE
 
             // 새로 받은 알람 설정
-            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.getAddedIndexList())
+            (binding.rvAlarm.adapter as AlarmAdapter).setAlarm(uiState.convertDate())
 
             // 비 로그인 상태라면 화면이동
             if (!uiState.isLogin) {

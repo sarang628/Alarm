@@ -11,7 +11,7 @@ import java.util.stream.Collectors
 import kotlin.math.abs
 
 @RequiresApi(Build.VERSION_CODES.N)
-fun divide(list: List<AlarmListItem>): List<AlarmListItem> {
+fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     val now = Date(System.currentTimeMillis())
     val today: List<AlarmListItem> = list.stream().filter { data ->
