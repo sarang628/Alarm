@@ -5,12 +5,15 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import com.example.library.JsonToObjectGenerator
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.lang.reflect.Type
+import java.util.Objects
 
 
 fun testAlarmUiState(context: Context, lifecycleOwner: LifecycleOwner): LiveData<AlarmUiState> {
@@ -47,23 +50,11 @@ fun testErrorOff(): AlarmUiState {
 
 fun testListOn(context: Context): AlarmUiState {
     return AlarmUiState(
-        list = getTestAlarmListByFile(context)
+        list = JsonToObjectGenerator<AlarmListItem>()
+            .getListByFile(context, "alarmList.json", AlarmListItem::class.java)
     )
 }
 
 fun testListOff(): AlarmUiState {
     return AlarmUiState()
-}
-
-fun getTestAlarmListByFile(context: Context): List<AlarmListItem> {
-    val inputStream = context.assets.open("alarmList.json")
-    val inputStreamReader = InputStreamReader(inputStream)
-    val bufferReader = BufferedReader(inputStreamReader)
-
-    val gson = Gson();
-    val list = gson.fromJson<List<AlarmListItem>>(
-        bufferReader,
-        object : TypeToken<List<AlarmListItem>>() {}.type
-    )
-    return list
 }

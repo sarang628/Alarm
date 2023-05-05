@@ -51,7 +51,7 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     /** HILT */
-    implementation "com.google.dagger:hilt-android:$hiltAndroidVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltViewModelVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltViewModelVersion"
@@ -60,6 +60,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
 
     implementation 'com.github.sarang628:TorangImageLoader:f4a2359698'
+    implementation 'com.github.sarang628:JsonToObjectGenerator:960fe9fece'
 //    implementation "com.github.sarang628:TorangRepository:$torangRepositoryVersion"
 
 }
