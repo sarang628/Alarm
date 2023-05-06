@@ -28,10 +28,17 @@ android {
 dependencies {
     /** common */
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-//    implementation "androidx.core:core-ktx:$ktxVersion"
-//    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-//    implementation "com.google.android.material:material:$materialVersion"
-//    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    /** NAVIGATION COMPONENT */
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion" // Kotlin
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion" // Kotlin
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion" // Feature module Support
+    androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion" // Testing Navigation
+    implementation "androidx.navigation:navigation-compose:$navigationVersion" // Jetpack Compose Integration
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     /** HILT */
     implementation "com.google.dagger:hilt-android:$hiltVersion"
@@ -39,11 +46,4 @@ dependencies {
 
     implementation project(path: ':library')
     implementation "com.github.sarang628:Theme:$themeVersion"
-
-    /** NAVIGATION COMPONENT */
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion" // Kotlin
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion" // Kotlin
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion"
-    androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
-    implementation "androidx.navigation:navigation-compose:$navigationVersion"
 }
