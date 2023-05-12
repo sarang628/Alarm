@@ -22,7 +22,10 @@ fun Alarm(alarmListItem: AlarmListItem?) {
     if (alarmListItem == null)
         return;
 
-    Row(Modifier.padding(start = 8.dp)) {
+    Row(
+        Modifier
+            .padding(start = 8.dp)
+            .height(65.dp)) {
         AsyncImage(
             model = alarmListItem.otherPictureUrl,
             contentDescription = "",
@@ -31,7 +34,7 @@ fun Alarm(alarmListItem: AlarmListItem?) {
         Spacer(modifier = Modifier.width(8.dp))
         Column(modifier = Modifier.height(50.dp), verticalArrangement = Arrangement.Center) {
             Text(text = "${alarmListItem.user?.name}님 이 포스트를 좋아합니다.")
-            Text(text = "2주 전")
+            Text(text = alarmListItem.transformDate())
         }
 
     }
