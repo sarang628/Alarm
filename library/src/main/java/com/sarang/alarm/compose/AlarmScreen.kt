@@ -1,5 +1,6 @@
-package com.sarang.alarm.fragment
+package com.sarang.alarm.compose
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,17 +23,20 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sarang.alarm.R
-import com.sarang.alarm.recyclerview.Alarm
-import com.sarang.alarm.uistate.AlarmUiState
-import kotlinx.coroutines.flow.StateFlow
+import com.sarang.alarm.recyclerview.AlarmListItem
+import com.sarang.alarm.viewmodels.AlarmViewModel
 import java.util.*
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun test(state: StateFlow<AlarmUiState>) {
-    val data by state.collectAsState()
-    val pullRefreshState = rememberPullRefreshState(false, { })
+fun AlarmScreen(
+    alarmViewModel: AlarmViewModel = hiltViewModel(),
+    profileServerUrl: String,
+) {
+    val uiState by alarmViewModel.uiState.collectAsState()
+    val pullRefreshState = rememberPullRefreshState(uiState.isRefreshing, { })
     Box(
         Modifier
             .fillMaxSize()
@@ -40,20 +44,23 @@ fun test(state: StateFlow<AlarmUiState>) {
             .background(color = colorResource(id = R.color.colorSecondaryLight))
     ) {
         LazyColumn {
-            val list = data.convertDate()
+            Log.d("AlarmScreen", uiState.list.toString())
+            val list = uiState.convertDate()
+            Log.d("AlarmScreen", list.size.toString())
             items(list.size) {
                 if (list[it].indexDate.isNotEmpty()) {
-                    test11(list[it].indexDate)
+                    AlarmListDateItem(list[it].indexDate)
                 } else {
-                    Alarm(
-                        list[it]
+                    AlarmListItem(
+                        profileServerUrl = profileServerUrl,
+                        alarmListItem = list[it]
                     )
                 }
             }
         }
 
         PullRefreshIndicator(
-            refreshing = false,
+            refreshing = uiState.isRefreshing,
             state = pullRefreshState,
             modifier = Modifier.align(Alignment.TopCenter)
         )
@@ -61,7 +68,7 @@ fun test(state: StateFlow<AlarmUiState>) {
 }
 
 @Composable
-fun test11(text: String) {
+fun AlarmListDateItem(text: String) {
     Row(
         Modifier
             .height(50.dp)
