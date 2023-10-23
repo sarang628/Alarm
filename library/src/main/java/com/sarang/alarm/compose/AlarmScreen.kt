@@ -36,14 +36,16 @@ fun AlarmScreen(
     profileServerUrl: String,
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
-    val pullRefreshState = rememberPullRefreshState(uiState.isRefreshing, { })
+    val pullRefreshState = rememberPullRefreshState(uiState.isRefreshing, {
+        alarmViewModel.refresh()
+    })
     Box(
         Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
             .background(color = colorResource(id = R.color.colorSecondaryLight))
     ) {
-        LazyColumn {
+        LazyColumn(Modifier.fillMaxSize()) {
             Log.d("AlarmScreen", uiState.list.toString())
             val list = uiState.convertDate()
             Log.d("AlarmScreen", list.size.toString())

@@ -13,12 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AlarmViewModel @Inject constructor(
-    alarmService: AlarmService
+    val alarmService: AlarmService
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(AlarmUiState())
-    val uiState = _uiState.asStateFlow()
-
-    init {
+    fun refresh() {
         viewModelScope.launch {
             _uiState.emit(uiState.value.copy(isRefreshing = true))
 
@@ -32,5 +29,12 @@ class AlarmViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    private val _uiState = MutableStateFlow(AlarmUiState())
+    val uiState = _uiState.asStateFlow()
+
+    init {
+        refresh()
     }
 }
