@@ -69,5 +69,5 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.3.0")
 
     implementation 'com.github.sarang628:TorangImageLoader:f4a2359698'
-    implementation 'com.github.sarang628:JsonToObjectGenerator:960fe9fece'
+    implementation "com.github.sarang628:JsonToObjectGenerator:$jsonToObjectGeneratorVesion"
 }
