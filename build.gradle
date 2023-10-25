@@ -27,5 +27,4 @@ ext {
     torangLocationServiceVersion = '83d7409e6a'
     themeVersion = '6f8e2a7a08'
     torangRepositoryVersion = '819cc8e6d5'
-    jsonToObjectGeneratorVesion = '8d8a65e1f1'
 }
