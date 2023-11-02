@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            LoginRepositoryTest(loginRepository = repository)
+            //LoginRepositoryTest(loginRepository = repository)
 
             AlarmScreen(profileServerUrl = "http://sarang628.iptime.org:89/profile_images/")
         }
