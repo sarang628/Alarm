@@ -3,6 +3,12 @@ package com.sarang.alarm_test_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.google.samples.apps.sunflower.ui.TorangTheme
 import com.sarang.alarm.compose.AlarmScreen
 import com.sarang.alarm.uistate.testAlarmUiState
 import com.sryang.torang_repository.repository.LoginRepository
@@ -17,10 +23,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-            //LoginRepositoryTest(loginRepository = repository)
-
-            AlarmScreen(profileServerUrl = "http://sarang628.iptime.org:89/profile_images/")
+            TorangTheme {
+                Surface(
+                    Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.background)
+                ) {
+                    //LoginRepositoryTest(loginRepository = repository)
+                    AlarmScreen(profileServerUrl = "http://sarang628.iptime.org:89/profile_images/")
+                }
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ class TorangOkHttpClientImpl @Inject constructor(@ApplicationContext val context
             val original = chain.request()
             val request = original.newBuilder()
                 .header("User-Agent", "android")
-                .header("accessToken", TorangPreference().getAccessToken(context)!!)
+                .header("accessToken", "")
                 .method(original.method, original.body)
                 .build()
             chain.proceed(request)

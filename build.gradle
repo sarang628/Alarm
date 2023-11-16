@@ -8,9 +8,9 @@ plugins {
 
 ext {
     // Sdk and tools
-    compileSdk = 33
+    compileSdk = 34
     minSdk = 24
-    targetSdk = 30
+    targetSdk = 34
     buildToolsVersion = '30.0.3'
 
     //hilt
@@ -18,13 +18,8 @@ ext {
 
     //navigation
     navigationVersion = '2.4.0-alpha06'
-    recyclerViewVersion = '1.2.1'
-    facebookLibraryVersion = '8.1.0'
-    fragmentVersion = "1.5.6"
-    kotlinVersion = '1.8.21'
     nav_version = '2.5.3'
 
-    torangLocationServiceVersion = '83d7409e6a'
-    themeVersion = '6f8e2a7a08'
-    torangRepositoryVersion = '819cc8e6d5'
+    themeVersion = '28a1702347'
+    torangRepositoryVersion = '7ef5acc303'
 }

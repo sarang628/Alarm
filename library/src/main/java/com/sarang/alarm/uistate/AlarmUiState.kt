@@ -56,11 +56,13 @@ data class AlarmListItem(
                 clickUser = clickUser,
                 clickPost = clickPost
             )
+
             AlarmType.REPLY -> getReplyMessage(
                 userName = user.name,
                 clickUser = clickUser,
                 clickPost = clickPost
             )
+
             AlarmType.FOLLOW -> getFollowMessage(userName = user.name, clickUser = clickUser)
             else -> SpannableString("")
         }
@@ -146,4 +148,38 @@ enum class AlarmType {
     LIKE,
     REPLY,
     FOLLOW
+}
+
+
+fun testAlarmListItem(): AlarmListItem {
+    return AlarmListItem(
+        id = 0,
+        contents = "contents",
+        otherPictureUrl = "otherPictureUrl",
+        user = User("name"),
+        createdDate = "",
+        type = AlarmType.LIKE
+    )
+}
+fun testAlarmListItem1(): AlarmListItem {
+    return AlarmListItem(
+        id = 0,
+        contents = "contents",
+        otherPictureUrl = "otherPictureUrl",
+        user = User("name"),
+        createdDate = "",
+        indexDate = "TODAY",
+        type = AlarmType.LIKE
+    )
+}
+fun testAlarmListItem2(): AlarmListItem {
+    return AlarmListItem(
+        id = 0,
+        contents = "contents",
+        otherPictureUrl = "otherPictureUrl",
+        user = User("name"),
+        createdDate = "",
+        indexDate = "IN THIS WEEK",
+        type = AlarmType.LIKE
+    )
 }

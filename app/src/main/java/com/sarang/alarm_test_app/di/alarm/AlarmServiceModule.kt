@@ -1,7 +1,7 @@
 package com.sarang.alarm_test_app.di.alarm
 
 import android.util.Log
-import com.sarang.alarm.service.AlarmService
+import com.sarang.alarm.service.GetAlarmUseCase
 import com.sarang.alarm.uistate.AlarmListItem
 import com.sarang.alarm.uistate.AlarmType
 import com.sarang.alarm.uistate.User
@@ -12,7 +12,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlin.streams.toList
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -21,8 +20,8 @@ class AlarmServiceModule {
     fun provideAlarmService(
         apiAlarm: ApiAlarm,
         sessionService: SessionService
-    ): AlarmService {
-        return object : AlarmService {
+    ): GetAlarmUseCase {
+        return object : GetAlarmUseCase {
             override suspend fun getAlarm(): List<AlarmListItem> {
                 var list: List<AlarmListItem> = ArrayList<AlarmListItem>()
                 sessionService.getToken()?.let {

@@ -1,7 +1,5 @@
 package com.sarang.alarm.compose
 
-import android.util.Log
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -15,47 +13,43 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sarang.alarm.recyclerview.AlarmListItem
+import com.sarang.alarm.uistate.AlarmListItem
+import com.sarang.alarm.uistate.testAlarmListItem
+import com.sarang.alarm.uistate.testAlarmListItem1
+import com.sarang.alarm.uistate.testAlarmListItem2
 import com.sarang.alarm.viewmodels.AlarmViewModel
 
 @Composable
 fun AlarmScreen(
-    alarmViewModel: AlarmViewModel = hiltViewModel(),
-    profileServerUrl: String,
+    alarmViewModel: AlarmViewModel = hiltViewModel(),   // 알림 뷰모델
+    profileServerUrl: String,                           // 프로필 서버 주소
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
-    /*val pullRefreshState = rememberPullRefreshState(uiState.isRefreshing, {
-        alarmViewModel.refresh()
-    })*/
-    Box(
-        Modifier
-            .fillMaxSize()
-            //.pullRefresh(pullRefreshState)
-    ) {
-        LazyColumn(Modifier.fillMaxSize()) {
-            Log.d("AlarmScreen", uiState.list.toString())
-            val list = uiState.convertDate()
-            Log.d("AlarmScreen", list.size.toString())
-            items(list.size) {
-                if (list[it].indexDate.isNotEmpty()) {
-                    AlarmListDateItem(list[it].indexDate)
-                } else {
-                    AlarmListItem(
-                        profileServerUrl = profileServerUrl,
-                        alarmListItem = list[it]
-                    )
-                }
+    val list = uiState.convertDate()
+    AlarmList(list, profileServerUrl)
+}
+
+@Composable
+fun AlarmList(
+    list: List<AlarmListItem>,
+    profileServerUrl: String
+) {
+    LazyColumn(Modifier.fillMaxSize()) {
+        items(list.size) {
+            if (list[it].indexDate.isNotEmpty()) {
+                AlarmListDateItem(list[it].indexDate)
+            } else {
+                AlarmListItem(
+                    profileServerUrl = profileServerUrl,
+                    alarmListItem = list[it]
+                )
             }
         }
-
-        /*PullRefreshIndicator(
-            refreshing = uiState.isRefreshing,
-            state = pullRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter)
-        )*/
     }
 }
 
@@ -75,4 +69,27 @@ fun AlarmListDateItem(text: String) {
             fontWeight = FontWeight.Bold,
         )
     }
+}
+
+@Preview
+@Composable
+fun PreviewAlarmList() {
+    AlarmList(
+        list = ArrayList<AlarmListItem>().apply {
+            add(testAlarmListItem1())
+            add(testAlarmListItem())
+            add(testAlarmListItem())
+            add(testAlarmListItem())
+            add(testAlarmListItem())
+            add(testAlarmListItem2())
+            add(testAlarmListItem())
+        },
+        profileServerUrl = ""
+    )
+}
+
+@Preview
+@Composable
+fun PreviewAlarmListDateItem() {
+    AlarmListDateItem(text = "Today")
 }

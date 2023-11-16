@@ -2,6 +2,6 @@ package com.sarang.alarm.service
 
 import com.sarang.alarm.uistate.AlarmListItem
 
-interface AlarmService {
+interface GetAlarmUseCase {
     suspend fun getAlarm(): List<AlarmListItem>
 }
