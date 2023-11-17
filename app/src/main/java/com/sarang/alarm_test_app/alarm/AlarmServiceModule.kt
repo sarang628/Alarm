@@ -1,4 +1,4 @@
-package com.sarang.alarm_test_app.di.alarm
+package com.sarang.alarm_test_app.alarm
 
 import android.util.Log
 import com.sarang.alarm.service.GetAlarmUseCase
