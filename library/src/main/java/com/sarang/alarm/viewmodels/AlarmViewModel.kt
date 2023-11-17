@@ -18,6 +18,8 @@ class AlarmViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(AlarmUiState())
     val uiState = _uiState.asStateFlow()
 
+    val isLogin = alarmService.isLogin
+
     init {
         refresh()
     }

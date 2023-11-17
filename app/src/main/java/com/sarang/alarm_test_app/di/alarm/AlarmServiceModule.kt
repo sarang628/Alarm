@@ -7,11 +7,14 @@ import com.sarang.alarm.uistate.AlarmType
 import com.sarang.alarm.uistate.User
 import com.sryang.torang_repository.api.ApiAlarm
 import com.sryang.torang_repository.data.RemoteAlarm
+import com.sryang.torang_repository.data.dao.LoggedInUserDao
 import com.sryang.torang_repository.session.SessionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -19,7 +22,8 @@ class AlarmServiceModule {
     @Provides
     fun provideAlarmService(
         apiAlarm: ApiAlarm,
-        sessionService: SessionService
+        sessionService: SessionService,
+        loggedInUserDao: LoggedInUserDao
     ): GetAlarmUseCase {
         return object : GetAlarmUseCase {
             override suspend fun getAlarm(): List<AlarmListItem> {
@@ -31,6 +35,9 @@ class AlarmServiceModule {
                 }
                 return list
             }
+
+            override val isLogin: Flow<Boolean>
+                get() = loggedInUserDao.getLoggedInUser().map { it != null }
         }
     }
 }

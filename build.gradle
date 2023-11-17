@@ -21,5 +21,5 @@ ext {
     nav_version = '2.5.3'
 
     themeVersion = '28a1702347'
-    torangRepositoryVersion = '7ef5acc303'
+    torangRepositoryVersion = 'd3cc785f43'
 }

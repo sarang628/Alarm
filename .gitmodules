@@ -1,0 +1,3 @@
+[submodule "app/src/main/java/com/sarang/alarm_test_app/di/repository"]
+	path = app/src/main/java/com/sarang/alarm_test_app/di/repository
+	url = https://github.com/sarang628/repository.git

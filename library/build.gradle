@@ -53,7 +53,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     implementation 'androidx.compose.material3:material3:1.2.0-alpha10' //JetNews Main 따라하기
     implementation "androidx.compose.material3:material3-window-size-class"
-    implementation "androidx.lifecycle:lifecycle-runtime-compose"
     implementation "androidx.navigation:navigation-compose:$nav_version"
     def nav_version = "2.5.3"
 

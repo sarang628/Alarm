@@ -1,5 +1,7 @@
 package com.sarang.alarm.compose
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -31,7 +33,15 @@ fun AlarmScreen(
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
     val list = uiState.convertDate()
-    AlarmList(list, profileServerUrl)
+    val isLogin by alarmViewModel.isLogin.collectAsState(initial = false)
+
+    if (isLogin) {
+        AlarmList(list, profileServerUrl)
+    } else {
+        Box(Modifier.fillMaxSize()) {
+            Text(text = "로그인을 해주세요.", Modifier.align(Alignment.Center))
+        }
+    }
 }
 
 @Composable
