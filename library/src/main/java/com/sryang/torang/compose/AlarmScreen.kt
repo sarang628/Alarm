@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sryang.torang.uistate.AlarmListItem
+import com.sryang.torang.data.AlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem1
 import com.sryang.torang.uistate.testAlarmListItem2

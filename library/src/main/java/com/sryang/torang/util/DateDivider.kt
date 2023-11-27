@@ -2,7 +2,7 @@ package com.sryang.torang.util
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.sryang.torang.uistate.AlarmListItem
+import com.sryang.torang.data.AlarmListItem
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
