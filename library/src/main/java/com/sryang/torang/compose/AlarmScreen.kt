@@ -1,7 +1,6 @@
-package com.sarang.alarm.compose
+package com.sryang.torang.compose
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,12 +18,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sarang.alarm.recyclerview.AlarmListItem
-import com.sarang.alarm.uistate.AlarmListItem
-import com.sarang.alarm.uistate.testAlarmListItem
-import com.sarang.alarm.uistate.testAlarmListItem1
-import com.sarang.alarm.uistate.testAlarmListItem2
-import com.sarang.alarm.viewmodels.AlarmViewModel
+import com.sryang.torang.uistate.AlarmListItem
+import com.sryang.torang.uistate.testAlarmListItem
+import com.sryang.torang.uistate.testAlarmListItem1
+import com.sryang.torang.uistate.testAlarmListItem2
+import com.sryang.torang.viewmodels.AlarmViewModel
 
 @Composable
 fun AlarmScreen(

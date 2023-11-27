@@ -1,6 +1,6 @@
-package com.sarang.alarm.service
+package com.sryang.torang.usecase
 
-import com.sarang.alarm.uistate.AlarmListItem
+import com.sryang.torang.uistate.AlarmListItem
 import kotlinx.coroutines.flow.Flow
 
 interface GetAlarmUseCase {

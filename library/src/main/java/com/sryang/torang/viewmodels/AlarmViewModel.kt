@@ -1,9 +1,9 @@
-package com.sarang.alarm.viewmodels
+package com.sryang.torang.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sarang.alarm.service.GetAlarmUseCase
-import com.sarang.alarm.uistate.AlarmUiState
+import com.sryang.torang.usecase.GetAlarmUseCase
+import com.sryang.torang.uistate.AlarmUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

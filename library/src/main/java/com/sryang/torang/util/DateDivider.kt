@@ -1,8 +1,8 @@
-package com.sarang.alarm.util
+package com.sryang.torang.util
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.sarang.alarm.uistate.AlarmListItem
+import com.sryang.torang.uistate.AlarmListItem
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

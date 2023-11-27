@@ -11,7 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.google.samples.apps.sunflower.ui.TorangTheme
-import com.sarang.alarm.compose.AlarmScreen
+import com.sryang.torang.compose.AlarmScreen
 import com.sryang.torang_repository.repository.LoginRepository
 import com.sryang.torang_repository.repository.LoginRepositoryTest
 import dagger.hilt.android.AndroidEntryPoint

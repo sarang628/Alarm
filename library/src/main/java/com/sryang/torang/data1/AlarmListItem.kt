@@ -1,40 +1,11 @@
-package com.sarang.alarm.uistate
+package com.sryang.torang.data1
 
-import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
-import androidx.annotation.RequiresApi
-import com.sarang.alarm.util.convertDate
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
-
-/** 알림 UiState */
-data class AlarmUiState(
-    // 스와이프 리프레시 갱신
-    val isRefreshing: Boolean = false,
-    // 얼림 리스트
-    val list: List<AlarmListItem> = ArrayList(),
-    // 에러메세지
-    val errorMsg: String? = null,
-    val isLoaded: Boolean = false,
-    val isLogin: Boolean = false
-) {
-    fun hasAlarm(): Boolean {
-        if (isLoaded && list.isEmpty()) {
-            return false
-        }
-        return true
-    }
-
-    //데이터 시, 분, 전 변환
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun convertDate(): List<AlarmListItem> {
-        return convertDate(list)
-    }
-}
 
 /** 알림 리스트 데이터 */
 data class AlarmListItem(
@@ -138,48 +109,4 @@ data class AlarmListItem(
         }
         return (TimeUnit.MILLISECONDS.toDays(diff) / 7).toString() + "주 전"
     }
-}
-
-data class User(
-    val name: String
-)
-
-enum class AlarmType {
-    LIKE,
-    REPLY,
-    FOLLOW
-}
-
-
-fun testAlarmListItem(): AlarmListItem {
-    return AlarmListItem(
-        id = 0,
-        contents = "contents",
-        otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
-        createdDate = "",
-        type = AlarmType.LIKE
-    )
-}
-fun testAlarmListItem1(): AlarmListItem {
-    return AlarmListItem(
-        id = 0,
-        contents = "contents",
-        otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
-        createdDate = "",
-        indexDate = "TODAY",
-        type = AlarmType.LIKE
-    )
-}
-fun testAlarmListItem2(): AlarmListItem {
-    return AlarmListItem(
-        id = 0,
-        contents = "contents",
-        otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
-        createdDate = "",
-        indexDate = "IN THIS WEEK",
-        type = AlarmType.LIKE
-    )
 }
