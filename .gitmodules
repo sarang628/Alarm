@@ -4,3 +4,6 @@
 [submodule "library/src/main/java/com/sryang/torang/data"]
 	path = library/src/main/java/com/sryang/torang/data
 	url = https://github.com/sarang628/data
+[submodule "app/src/main/java/com/sarang/alarm_test_app/di/alarm_di"]
+	path = app/src/main/java/com/sarang/alarm_test_app/di/alarm_di
+	url = https://github.com/sarang628/alarm_di
