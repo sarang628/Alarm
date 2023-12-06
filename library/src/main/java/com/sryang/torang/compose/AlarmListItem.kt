@@ -24,14 +24,14 @@ import com.sryang.torang.uistate.testAlarmListItem
 
 
 @Composable
-fun AlarmListItem(profileServerUrl: String, alarmListItem: AlarmListItem) {
+fun AlarmListItem(alarmListItem: AlarmListItem) {
     Row(
         Modifier
             .padding(start = 8.dp)
             .height(65.dp)
     ) {
         AsyncImage(
-            model = profileServerUrl + alarmListItem.otherPictureUrl,
+            model = alarmListItem.otherPictureUrl,
             contentDescription = "",
             Modifier
                 .size(50.dp)
@@ -50,6 +50,6 @@ fun AlarmListItem(profileServerUrl: String, alarmListItem: AlarmListItem) {
 @Preview
 @Composable
 fun PreviewAlarmListItem() {
-    AlarmListItem(profileServerUrl = "", alarmListItem = testAlarmListItem())
+    AlarmListItem(alarmListItem = testAlarmListItem())
 
 }

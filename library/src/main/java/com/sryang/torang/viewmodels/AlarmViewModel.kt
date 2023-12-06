@@ -24,7 +24,7 @@ class AlarmViewModel @Inject constructor(
         refresh()
     }
 
-    private fun refresh() {
+    fun refresh() {
         viewModelScope.launch {
             _uiState.emit(uiState.value.copy(isRefreshing = true))
             try {

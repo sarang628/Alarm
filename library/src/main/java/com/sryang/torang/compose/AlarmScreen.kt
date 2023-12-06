@@ -8,16 +8,21 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.sryang.library.pullrefresh.PullToRefreshLayout
+import com.sryang.library.pullrefresh.RefreshIndicatorState
+import com.sryang.library.pullrefresh.rememberPullToRefreshState
 import com.sryang.torang.data.AlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem1
@@ -27,14 +32,17 @@ import com.sryang.torang.viewmodels.AlarmViewModel
 @Composable
 fun AlarmScreen(
     alarmViewModel: AlarmViewModel = hiltViewModel(),   // 알림 뷰모델
-    profileServerUrl: String,                           // 프로필 서버 주소
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
     val list = uiState.convertDate()
     val isLogin by alarmViewModel.isLogin.collectAsState(initial = false)
 
     if (isLogin) {
-        AlarmList(list, profileServerUrl)
+        AlarmList(
+            isRefresh = uiState.isRefreshing,
+            list = list, onRefresh = {
+                alarmViewModel.refresh()
+            })
     } else {
         Box(Modifier.fillMaxSize()) {
             Text(text = "로그인을 해주세요.", Modifier.align(Alignment.Center))
@@ -44,18 +52,28 @@ fun AlarmScreen(
 
 @Composable
 fun AlarmList(
+    isRefresh: Boolean = false,
     list: List<AlarmListItem>,
-    profileServerUrl: String
+    onRefresh: () -> Unit
 ) {
-    LazyColumn(Modifier.fillMaxSize()) {
-        items(list.size) {
-            if (list[it].indexDate.isNotEmpty()) {
-                AlarmListDateItem(list[it].indexDate)
-            } else {
-                AlarmListItem(
-                    profileServerUrl = profileServerUrl,
-                    alarmListItem = list[it]
-                )
+    val state = rememberPullToRefreshState()
+
+    LaunchedEffect(key1 = isRefresh, block = {
+        if (isRefresh) {
+            state.updateState(RefreshIndicatorState.Refreshing)
+        } else {
+            state.updateState(RefreshIndicatorState.Default)
+        }
+    })
+
+    PullToRefreshLayout(pullRefreshLayoutState = state, onRefresh = onRefresh, refreshThreshold = 80) {
+        LazyColumn(Modifier.fillMaxSize()) {
+            items(list.size) {
+                if (list[it].indexDate.isNotEmpty()) {
+                    AlarmListDateItem(list[it].indexDate)
+                } else {
+                    AlarmListItem(alarmListItem = list[it])
+                }
             }
         }
     }
@@ -91,8 +109,7 @@ fun PreviewAlarmList() {
             add(testAlarmListItem())
             add(testAlarmListItem2())
             add(testAlarmListItem())
-        },
-        profileServerUrl = ""
+        }, onRefresh = {}
     )
 }
 

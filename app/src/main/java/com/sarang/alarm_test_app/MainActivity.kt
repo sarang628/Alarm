@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     Column(
                     ) {
                         Box(Modifier.weight(1f)) {
-                            AlarmScreen(profileServerUrl = "http://sarang628.iptime.org:89/profile_images/")
+                            AlarmScreen()
                         }
                         Box(Modifier.weight(1f)) {
                             LoginRepositoryTest(loginRepository = repository)

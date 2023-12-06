@@ -22,4 +22,5 @@ ext {
 
     themeVersion = '28a1702347'
     torangRepositoryVersion = 'd3cc785f43'
+    MUI3ScrollToRefreshVersion = 'dd57844809'
 }

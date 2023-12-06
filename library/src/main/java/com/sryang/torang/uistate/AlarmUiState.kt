@@ -4,7 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.sryang.torang.data.AlarmListItem
 import com.sryang.torang.data.AlarmType
-import com.sryang.torang.data.User
+import com.sryang.torang.data.AlarmUser
 import com.sryang.torang.util.convertDate
 import java.util.*
 
@@ -41,7 +41,7 @@ fun testAlarmListItem(): AlarmListItem {
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
+        user = AlarmUser("name"),
         createdDate = "",
         type = AlarmType.LIKE
     )
@@ -51,7 +51,7 @@ fun testAlarmListItem1(): AlarmListItem {
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
+        user = AlarmUser("name"),
         createdDate = "",
         indexDate = "TODAY",
         type = AlarmType.LIKE
@@ -62,7 +62,7 @@ fun testAlarmListItem2(): AlarmListItem {
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",
-        user = User("name"),
+        user = AlarmUser("name"),
         createdDate = "",
         indexDate = "IN THIS WEEK",
         type = AlarmType.LIKE
