@@ -13,7 +13,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sryang.library.pullrefresh.PullToRefreshLayout
 import com.sryang.library.pullrefresh.RefreshIndicatorState
 import com.sryang.library.pullrefresh.rememberPullToRefreshState
-import com.sryang.torang.data.AlarmListItem
+import com.sryang.torang.data.alarm.AlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem1
 import com.sryang.torang.uistate.testAlarmListItem2
