@@ -2,9 +2,9 @@ package com.sryang.torang.uistate
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.sryang.torang.data.alarm.AlarmListItem
-import com.sryang.torang.data.alarm.AlarmType
-import com.sryang.torang.data.alarm.AlarmUser
+import com.sryang.torang.data1.alarm.AlarmListItem
+import com.sryang.torang.data1.alarm.AlarmType
+import com.sryang.torang.data1.alarm.AlarmUser
 import com.sryang.torang.util.convertDate
 import java.util.*
 

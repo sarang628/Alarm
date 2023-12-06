@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sryang.library.pullrefresh.PullToRefreshLayout
 import com.sryang.library.pullrefresh.RefreshIndicatorState
 import com.sryang.library.pullrefresh.rememberPullToRefreshState
-import com.sryang.torang.data.alarm.AlarmListItem
+import com.sryang.torang.data1.alarm.AlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem1
 import com.sryang.torang.uistate.testAlarmListItem2
