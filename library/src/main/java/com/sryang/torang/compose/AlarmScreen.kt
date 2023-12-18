@@ -1,11 +1,13 @@
 package com.sryang.torang.compose
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +33,7 @@ import com.sryang.torang.viewmodels.AlarmViewModel
 @Composable
 fun AlarmScreen(
     alarmViewModel: AlarmViewModel = hiltViewModel(),   // 알림 뷰모델
+    onEmailLogin: () -> Unit
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
     val list = uiState.convertDate()
@@ -44,7 +47,15 @@ fun AlarmScreen(
             })
     } else {
         Box(Modifier.fillMaxSize()) {
-            Text(text = "로그인을 해주세요.", Modifier.align(Alignment.Center))
+            Column(
+                Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "로그인을 해주세요.")
+                Button(onClick = { onEmailLogin.invoke() }) {
+                    Text(text = "LOG IN WITH EMAIL")
+                }
+            }
         }
     }
 }
@@ -65,7 +76,11 @@ fun AlarmList(
         }
     })
 
-    PullToRefreshLayout(pullRefreshLayoutState = state, onRefresh = onRefresh, refreshThreshold = 80) {
+    PullToRefreshLayout(
+        pullRefreshLayoutState = state,
+        onRefresh = onRefresh,
+        refreshThreshold = 80
+    ) {
         LazyColumn(Modifier.fillMaxSize()) {
             items(list.size) {
                 if (list[it].indexDate.isNotEmpty()) {
