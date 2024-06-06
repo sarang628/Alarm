@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.google.samples.apps.sunflower.ui.TorangTheme
+import com.sarang.torang.repository.LoginRepository
+import com.sarang.torang.repository.LoginRepositoryTest
 import com.sryang.torang.compose.AlarmScreen
-import com.sryang.torang_repository.repository.LoginRepository
-import com.sryang.torang_repository.repository.LoginRepositoryTest
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column(Modifier.verticalScroll(rememberScrollState())) {
                         Box(Modifier.height(LocalConfiguration.current.screenHeightDp.dp)) {
-                            AlarmScreen()
+                            AlarmScreen(onEmailLogin = {})
                         }
                         LoginRepositoryTest(loginRepository = repository)
                     }

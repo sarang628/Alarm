@@ -105,7 +105,7 @@ fun AlarmListDateItem(text: String) {
             modifier = Modifier,
             text = text,
             fontSize = 24.sp,
-            color = Color.Black,
+
             fontWeight = FontWeight.Bold,
         )
     }
