@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Column(Modifier.verticalScroll(rememberScrollState())) {
                         Box(Modifier.height(LocalConfiguration.current.screenHeightDp.dp)) {
-                            AlarmScreen(onEmailLogin = {})
+                            AlarmScreen(onEmailLogin = {}, onProfile = {}, onContents = {})
                         }
                         LoginRepositoryTest(loginRepository = repository)
                     }

@@ -17,7 +17,7 @@ data class AlarmUiState(
     // 에러메세지
     val errorMsg: String? = null,
     val isLoaded: Boolean = false,
-    val isLogin: Boolean = false
+    val isLogin: Boolean = false,
 ) {
     fun hasAlarm(): Boolean {
         if (isLoaded && list.isEmpty()) {
@@ -34,8 +34,6 @@ data class AlarmUiState(
 }
 
 
-
-
 fun testAlarmListItem(): AlarmListItem {
     return AlarmListItem(
         id = 0,
@@ -43,9 +41,12 @@ fun testAlarmListItem(): AlarmListItem {
         otherPictureUrl = "otherPictureUrl",
         user = AlarmUser("name"),
         createdDate = "",
-        type = AlarmType.LIKE
+        type = AlarmType.LIKE,
+        pictureUrl = "",
+        reviewId = 1
     )
 }
+
 fun testAlarmListItem1(): AlarmListItem {
     return AlarmListItem(
         id = 0,
@@ -54,9 +55,11 @@ fun testAlarmListItem1(): AlarmListItem {
         user = AlarmUser("name"),
         createdDate = "",
         indexDate = "TODAY",
-        type = AlarmType.LIKE
+        type = AlarmType.LIKE,
+        reviewId = 1
     )
 }
+
 fun testAlarmListItem2(): AlarmListItem {
     return AlarmListItem(
         id = 0,
@@ -65,6 +68,7 @@ fun testAlarmListItem2(): AlarmListItem {
         user = AlarmUser("name"),
         createdDate = "",
         indexDate = "IN THIS WEEK",
-        type = AlarmType.LIKE
+        type = AlarmType.LIKE,
+        reviewId = 1
     )
 }

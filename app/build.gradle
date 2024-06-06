@@ -95,4 +95,6 @@ dependencies {
     implementation project(path: ':library')
     implementation "com.github.sarang628:TorangRepository:$torangRepositoryVersion"
     implementation "com.github.sarang628:Theme:$themeVersion"
+
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 }

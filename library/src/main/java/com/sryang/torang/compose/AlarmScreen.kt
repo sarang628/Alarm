@@ -33,7 +33,9 @@ import com.sryang.torang.viewmodels.AlarmViewModel
 @Composable
 fun AlarmScreen(
     alarmViewModel: AlarmViewModel = hiltViewModel(),   // 알림 뷰모델
-    onEmailLogin: () -> Unit
+    onEmailLogin: () -> Unit,
+    onContents: (Int) -> Unit,
+    onProfile: (Int) -> Unit,
 ) {
     val uiState by alarmViewModel.uiState.collectAsState()
     val list = uiState.convertDate()
@@ -42,9 +44,11 @@ fun AlarmScreen(
     if (isLogin) {
         AlarmList(
             isRefresh = uiState.isRefreshing,
-            list = list, onRefresh = {
-                alarmViewModel.refresh()
-            })
+            list = list,
+            onRefresh = { alarmViewModel.refresh() },
+            onContents = onContents,
+            onProfile = onProfile
+        )
     } else {
         Box(Modifier.fillMaxSize()) {
             Column(
@@ -64,7 +68,9 @@ fun AlarmScreen(
 fun AlarmList(
     isRefresh: Boolean = false,
     list: List<AlarmListItem>,
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit,
+    onContents: (Int) -> Unit,
+    onProfile: (Int) -> Unit,
 ) {
     val state = rememberPullToRefreshState()
 
@@ -86,7 +92,11 @@ fun AlarmList(
                 if (list[it].indexDate.isNotEmpty()) {
                     AlarmListDateItem(list[it].indexDate)
                 } else {
-                    AlarmListItem(alarmListItem = list[it])
+                    AlarmListItem(
+                        alarmListItem = list[it],
+                        onContents = { onContents.invoke(list[it].reviewId) },
+                        onProfile = { onProfile.invoke(list[it].otherUserId) }
+                    )
                 }
             }
         }
@@ -123,7 +133,7 @@ fun PreviewAlarmList() {
             add(testAlarmListItem())
             add(testAlarmListItem2())
             add(testAlarmListItem())
-        }, onRefresh = {}
+        }, onRefresh = {}, onProfile = {}, onContents = {}
     )
 }
 

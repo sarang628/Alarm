@@ -15,7 +15,10 @@ data class AlarmListItem(
     val otherPictureUrl: String = "",
     val createdDate: String = "",
     val indexDate: String = "",
-    val type: AlarmType? = null
+    val pictureUrl: String = "",
+    val reviewId: Int = 0,
+    val otherUserId: Int = 0,
+    val type: AlarmType? = null,
 ) {
     fun toTextViewMessage(clickUser: ClickableSpan, clickPost: ClickableSpan): SpannableString {
         if (user == null)
@@ -42,7 +45,7 @@ data class AlarmListItem(
     fun getLikeMessage(
         userName: String,
         clickUser: ClickableSpan? = null,
-        clickPost: ClickableSpan? = null
+        clickPost: ClickableSpan? = null,
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)
@@ -60,7 +63,7 @@ data class AlarmListItem(
     fun getReplyMessage(
         userName: String,
         clickUser: ClickableSpan? = null,
-        clickPost: ClickableSpan? = null
+        clickPost: ClickableSpan? = null,
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)
@@ -77,7 +80,7 @@ data class AlarmListItem(
 
     fun getFollowMessage(
         userName: String,
-        clickUser: ClickableSpan? = null
+        clickUser: ClickableSpan? = null,
     ): SpannableString {
         val sb = StringBuffer()
         sb.append(userName)

@@ -21,6 +21,6 @@ ext {
     nav_version = '2.5.3'
 
     themeVersion = '05d5af61da'
-    torangRepositoryVersion = 'e009a1fa66'
+    torangRepositoryVersion = '186804ba56'
     MUI3ScrollToRefreshVersion = 'dd57844809'
 }
