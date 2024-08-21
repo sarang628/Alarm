@@ -1,9 +1,3 @@
-[submodule "app/src/main/java/com/sarang/alarm_test_app/di/repository"]
-	path = app/src/main/java/com/sarang/alarm_test_app/di/repository
-	url = https://github.com/sarang628/repository.git
-[submodule "app/src/main/java/com/sarang/alarm_test_app/di/alarm_di"]
-	path = app/src/main/java/com/sarang/alarm_test_app/di/alarm_di
-	url = https://github.com/sarang628/alarm_di
 [submodule "gradle/TorangToml"]
 	path = gradle/TorangToml
 	url = https://github.com/sarang628/TorangToml.git
