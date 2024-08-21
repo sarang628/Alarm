@@ -92,24 +92,29 @@ data class AlarmListItem(
     }
 
     fun transformDate(): String {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val diff = Date(System.currentTimeMillis()).time - sdf.parse(createdDate).time
-        val sb = StringBuilder()
-        if (diff < TimeUnit.MINUTES.toMillis(1)) {
-            return TimeUnit.MILLISECONDS.toSeconds(diff).toString() + "초 전"
-        } else if (diff > TimeUnit.MINUTES.toMillis(1)
-            && diff < TimeUnit.HOURS.toMillis(1)
-        ) {
-            return TimeUnit.MILLISECONDS.toMinutes(diff).toString() + "분 전"
-        } else if (diff > TimeUnit.HOURS.toMillis(1)
-            && diff < TimeUnit.DAYS.toMillis(1)
-        ) {
-            return TimeUnit.MILLISECONDS.toHours(diff).toString() + "시간 전"
-        } else if (diff > TimeUnit.DAYS.toMillis(1)
-            && diff < TimeUnit.DAYS.toMillis(7)
-        ) {
-            return TimeUnit.MILLISECONDS.toDays(diff).toString() + "일 전"
+        try {
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val diff = Date(System.currentTimeMillis()).time - sdf.parse(createdDate).time
+            val sb = StringBuilder()
+            if (diff < TimeUnit.MINUTES.toMillis(1)) {
+                return TimeUnit.MILLISECONDS.toSeconds(diff).toString() + "초 전"
+            } else if (diff > TimeUnit.MINUTES.toMillis(1)
+                && diff < TimeUnit.HOURS.toMillis(1)
+            ) {
+                return TimeUnit.MILLISECONDS.toMinutes(diff).toString() + "분 전"
+            } else if (diff > TimeUnit.HOURS.toMillis(1)
+                && diff < TimeUnit.DAYS.toMillis(1)
+            ) {
+                return TimeUnit.MILLISECONDS.toHours(diff).toString() + "시간 전"
+            } else if (diff > TimeUnit.DAYS.toMillis(1)
+                && diff < TimeUnit.DAYS.toMillis(7)
+            ) {
+                return TimeUnit.MILLISECONDS.toDays(diff).toString() + "일 전"
+            }
+            return (TimeUnit.MILLISECONDS.toDays(diff) / 7).toString() + "주 전"
+        } catch (e: Exception) {
+
         }
-        return (TimeUnit.MILLISECONDS.toDays(diff) / 7).toString() + "주 전"
+        return ""
     }
 }

@@ -15,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +24,7 @@ import com.sryang.library.pullrefresh.PullToRefreshLayout
 import com.sryang.library.pullrefresh.RefreshIndicatorState
 import com.sryang.library.pullrefresh.rememberPullToRefreshState
 import com.sryang.torang.data1.alarm.AlarmListItem
+import com.sryang.torang.uistate.convertedDateList
 import com.sryang.torang.uistate.testAlarmListItem
 import com.sryang.torang.uistate.testAlarmListItem1
 import com.sryang.torang.uistate.testAlarmListItem2
@@ -37,14 +37,13 @@ fun AlarmScreen(
     onContents: (Int) -> Unit,
     onProfile: (Int) -> Unit,
 ) {
-    val uiState by alarmViewModel.uiState.collectAsState()
-    val list = uiState.convertDate()
+    val uiState = alarmViewModel.uiState
     val isLogin by alarmViewModel.isLogin.collectAsState(initial = false)
 
     if (isLogin) {
         AlarmList(
             isRefresh = uiState.isRefreshing,
-            list = list,
+            list = uiState.convertedDateList,
             onRefresh = { alarmViewModel.refresh() },
             onContents = onContents,
             onProfile = onProfile
@@ -71,6 +70,7 @@ fun AlarmList(
     onRefresh: () -> Unit,
     onContents: (Int) -> Unit,
     onProfile: (Int) -> Unit,
+    isEmpty: Boolean = false,
 ) {
     val state = rememberPullToRefreshState()
 
@@ -101,6 +101,12 @@ fun AlarmList(
             }
         }
     }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        if (isEmpty) {
+            Text(modifier = Modifier.align(Alignment.Center), text = "알람이 없습니다.")
+        }
+    }
 }
 
 @Composable
@@ -121,7 +127,7 @@ fun AlarmListDateItem(text: String) {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewAlarmList() {
     AlarmList(

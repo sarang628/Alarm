@@ -1,5 +1,8 @@
 package com.sryang.torang.viewmodels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sryang.torang.usecase.GetAlarmUseCase
@@ -15,8 +18,8 @@ import javax.inject.Inject
 class AlarmViewModel @Inject constructor(
     private val alarmService: GetAlarmUseCase
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(AlarmUiState())
-    val uiState = _uiState.asStateFlow()
+    var uiState by mutableStateOf(AlarmUiState())
+        private set
 
     val isLogin = alarmService.isLogin
 
@@ -26,14 +29,18 @@ class AlarmViewModel @Inject constructor(
 
     fun refresh() {
         viewModelScope.launch {
-            _uiState.emit(uiState.value.copy(isRefreshing = true))
+            uiState = uiState.copy(isRefreshing = true)
             try {
                 val result = alarmService.getAlarm();
-                _uiState.update { it.copy(list = result, isRefreshing = false) }
+                uiState = uiState.copy(
+                    list = result,
+                    isRefreshing = false,
+                    isEmptyAlarm = result.isEmpty()
+                )
             } catch (e: Exception) {
 
             } finally {
-                _uiState.update { it.copy(isRefreshing = false) }
+                uiState = uiState.copy(isRefreshing = false)
             }
         }
     }

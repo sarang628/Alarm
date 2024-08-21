@@ -1,12 +1,9 @@
 package com.sryang.torang.uistate
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.sryang.torang.data1.alarm.AlarmListItem
 import com.sryang.torang.data1.alarm.AlarmType
 import com.sryang.torang.data1.alarm.AlarmUser
 import com.sryang.torang.util.convertDate
-import java.util.*
 
 /** 알림 UiState */
 data class AlarmUiState(
@@ -18,6 +15,7 @@ data class AlarmUiState(
     val errorMsg: String? = null,
     val isLoaded: Boolean = false,
     val isLogin: Boolean = false,
+    val isEmptyAlarm: Boolean = false,
 ) {
     fun hasAlarm(): Boolean {
         if (isLoaded && list.isEmpty()) {
@@ -25,13 +23,10 @@ data class AlarmUiState(
         }
         return true
     }
-
-    //데이터 시, 분, 전 변환
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun convertDate(): List<AlarmListItem> {
-        return convertDate(list)
-    }
 }
+
+//데이터 시, 분, 전 변환
+val AlarmUiState.convertedDateList get() = convertDate(list)
 
 
 fun testAlarmListItem(): AlarmListItem {
