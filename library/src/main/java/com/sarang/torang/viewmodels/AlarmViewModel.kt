@@ -1,12 +1,12 @@
-package com.sryang.torang.viewmodels
+package com.sarang.torang.viewmodels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sryang.torang.usecase.GetAlarmUseCase
-import com.sryang.torang.uistate.AlarmUiState
+import com.sarang.torang.usecase.GetAlarmUseCase
+import com.sarang.torang.uistate.AlarmUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

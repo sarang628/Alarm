@@ -1,4 +1,4 @@
-package com.sarang.alarm_test_app
+package com.sarang.torang
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.google.samples.apps.sunflower.ui.TorangTheme
 import com.sarang.torang.repository.LoginRepository
 import com.sarang.torang.repository.LoginRepositoryTest
-import com.sryang.torang.compose.AlarmScreen
+import com.sarang.torang.compose.AlarmScreen
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

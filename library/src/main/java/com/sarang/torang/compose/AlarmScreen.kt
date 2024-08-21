@@ -1,4 +1,4 @@
-package com.sryang.torang.compose
+package com.sarang.torang.compose
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,12 +23,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.sryang.library.pullrefresh.PullToRefreshLayout
 import com.sryang.library.pullrefresh.RefreshIndicatorState
 import com.sryang.library.pullrefresh.rememberPullToRefreshState
-import com.sryang.torang.data1.alarm.AlarmListItem
-import com.sryang.torang.uistate.convertedDateList
-import com.sryang.torang.uistate.testAlarmListItem
-import com.sryang.torang.uistate.testAlarmListItem1
-import com.sryang.torang.uistate.testAlarmListItem2
-import com.sryang.torang.viewmodels.AlarmViewModel
+import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.uistate.convertedDateList
+import com.sarang.torang.uistate.testAlarmListItem
+import com.sarang.torang.uistate.testAlarmListItem1
+import com.sarang.torang.uistate.testAlarmListItem2
+import com.sarang.torang.viewmodels.AlarmViewModel
 
 @Composable
 fun AlarmScreen(

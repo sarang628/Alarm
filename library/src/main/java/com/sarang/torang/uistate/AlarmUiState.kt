@@ -1,9 +1,9 @@
-package com.sryang.torang.uistate
+package com.sarang.torang.uistate
 
-import com.sryang.torang.data1.alarm.AlarmListItem
-import com.sryang.torang.data1.alarm.AlarmType
-import com.sryang.torang.data1.alarm.AlarmUser
-import com.sryang.torang.util.convertDate
+import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmType
+import com.sarang.torang.data1.alarm.AlarmUser
+import com.sarang.torang.util.convertDate
 
 /** 알림 UiState */
 data class AlarmUiState(

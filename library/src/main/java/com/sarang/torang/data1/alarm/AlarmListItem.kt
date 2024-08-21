@@ -1,4 +1,4 @@
-package com.sryang.torang.data1.alarm
+package com.sarang.torang.data1.alarm
 
 import android.text.SpannableString
 import android.text.Spanned

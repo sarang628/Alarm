@@ -1,4 +1,4 @@
-package com.sryang.torang.compose
+package com.sarang.torang.compose
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,8 +24,8 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
-import com.sryang.torang.data1.alarm.AlarmListItem
-import com.sryang.torang.uistate.testAlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.uistate.testAlarmListItem
 
 
 @Composable

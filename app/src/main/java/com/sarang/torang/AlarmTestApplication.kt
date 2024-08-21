@@ -1,4 +1,4 @@
-package com.sarang.alarm_test_app
+package com.sarang.torang
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

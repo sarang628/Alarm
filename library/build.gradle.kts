@@ -27,31 +27,6 @@ android {
         }
     }
 
-    android.buildFeatures.buildConfig = true
-
-    buildTypes {
-        getByName("debug") {
-            buildConfigField("String", "SERVER_URL", "\"http://sarang628.iptime.org\"")
-            buildConfigField("String", "IMAGE_PORT", "\"89\"")
-            buildConfigField("String", "PROFILE_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/profile_images/\"")
-            buildConfigField("String", "REVIEW_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/review_images/\"")
-            buildConfigField("String", "RESTAURANT_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/restaurant_images/\"")
-            buildConfigField("String", "MENU_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/menu_images/\"")
-        }
-
-        getByName("release") {
-            buildConfigField("String", "SERVER_URL", "\"http://sarang628.iptime.org\"")
-            buildConfigField("String", "IMAGE_PORT", "\"89\"")
-            buildConfigField("String", "PROFILE_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/profile_images/\"")
-            buildConfigField("String", "REVIEW_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/review_images/\"")
-            buildConfigField("String", "RESTAURANT_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/restaurant_images/\"")
-            buildConfigField("String", "MENU_IMAGE_SERVER_URL", "\"http://sarang628.iptime.org:89/menu_images/\"")
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            signingConfig = signingConfigs.getByName("debug")
-        }
-    }
-
     compileOptions {
         targetCompatibility = JavaVersion.VERSION_17
         sourceCompatibility = JavaVersion.VERSION_17

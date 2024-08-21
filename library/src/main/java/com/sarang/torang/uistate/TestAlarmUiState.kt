@@ -1,4 +1,4 @@
-package com.sryang.torang.uistate
+package com.sarang.torang.uistate
 
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner

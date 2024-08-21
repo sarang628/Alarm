@@ -1,7 +1,7 @@
-package com.sryang.torang.util
+package com.sarang.torang.util
 
 import android.util.Log
-import com.sryang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItem
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date

@@ -1,4 +1,4 @@
-package com.sryang.torang.data1.alarm
+package com.sarang.torang.data1.alarm
 
 enum class AlarmType {
     LIKE,
