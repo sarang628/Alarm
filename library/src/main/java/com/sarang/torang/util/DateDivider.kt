@@ -58,7 +58,6 @@ fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
                 abs(d.time - now.time),
                 TimeUnit.MILLISECONDS
             )
-            Log.d("__convertDate", "diffHour : $diffHour")
             return@filter diffHour > 24 * 30
         } catch (e: ParseException) {
             e.printStackTrace()
