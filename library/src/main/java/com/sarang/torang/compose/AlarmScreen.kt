@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,9 +19,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sryang.library.pullrefresh.PullToRefreshLayout
-import com.sryang.library.pullrefresh.RefreshIndicatorState
-import com.sryang.library.pullrefresh.rememberPullToRefreshState
 import com.sarang.torang.data1.alarm.AlarmListItem
 import com.sarang.torang.uistate.convertedDateList
 import com.sarang.torang.uistate.testAlarmListItem
@@ -72,32 +68,16 @@ fun AlarmList(
     onProfile: (Int) -> Unit,
     isEmpty: Boolean = false,
 ) {
-    val state = rememberPullToRefreshState()
-
-    LaunchedEffect(key1 = isRefresh, block = {
-        if (isRefresh) {
-            state.updateState(RefreshIndicatorState.Refreshing)
-        } else {
-            state.updateState(RefreshIndicatorState.Default)
-        }
-    })
-
-    PullToRefreshLayout(
-        pullRefreshLayoutState = state,
-        onRefresh = onRefresh,
-        refreshThreshold = 80
-    ) {
-        LazyColumn(Modifier.fillMaxSize()) {
-            items(list.size) {
-                if (list[it].indexDate.isNotEmpty()) {
-                    AlarmListDateItem(list[it].indexDate)
-                } else {
-                    AlarmListItem(
-                        alarmListItem = list[it],
-                        onContents = { onContents.invoke(list[it].reviewId) },
-                        onProfile = { onProfile.invoke(list[it].otherUserId) }
-                    )
-                }
+    LazyColumn(Modifier.fillMaxSize()) {
+        items(list.size) {
+            if (list[it].indexDate.isNotEmpty()) {
+                AlarmListDateItem(list[it].indexDate)
+            } else {
+                AlarmListItem(
+                    alarmListItem = list[it],
+                    onContents = { onContents.invoke(list[it].reviewId) },
+                    onProfile = { onProfile.invoke(list[it].otherUserId) }
+                )
             }
         }
     }

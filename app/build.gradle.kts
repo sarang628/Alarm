@@ -45,7 +45,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtension.get()
     }
 
     compileOptions {
@@ -105,6 +105,8 @@ dependencies {
     implementation(libs.material3.windows.size)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.nav.compose)
+    implementation(libs.torangnetwork)
+    implementation(libs.torangdatabase)
     androidTestImplementation(libs.x.ui.test.junit4) //runTest
     debugImplementation(libs.x.ui.test.manifest) // Needed for createAndroidComposeRule, but not createComposeRule:
 

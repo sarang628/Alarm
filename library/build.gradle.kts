@@ -37,7 +37,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = libs.versions.kotlinCompilerExtension.get()
     }
 }
 
@@ -87,7 +87,6 @@ dependencies {
 
     implementation(libs.constraintlayout.compose)
     implementation("io.coil-kt:coil-compose:2.3.0")
-    implementation(libs.scrolltorefresh)
 }
 
 afterEvaluate {
