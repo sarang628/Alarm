@@ -14,7 +14,7 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
-class AlarmListItemTest {
+class AlarmItemTest {
     @get:Rule
     val composeTestRule = createComposeRule()
     // use createAndroidComposeRule<YourActivity>() if you need access to

@@ -34,50 +34,40 @@ import com.sarang.torang.uistate.testAlarmListItem
 fun AlarmItem(alarmListItem : AlarmListItemUIState.Item = AlarmListItemUIState.Item(),
               onContents    : () -> Unit    = {},
               onProfile     : () -> Unit    = {}) {
-    ConstraintLayout(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onProfile.invoke() }
-            .padding(start = 8.dp, end = 8.dp)
-            .height(65.dp),
-        constraintSet = alarmListItemConstraintSet()
-    ) {
-        AsyncImage(
-            model = alarmListItem.otherPictureUrl,
-            contentDescription = "",
-            Modifier.layoutId("image")
-                    .testTag("profileImage")
-                    .size(50.dp)
-                    .clip(CircleShape)
-                    .clickable(enabled = true,
-                               onClick = onProfile)
-                    .background(Color(0x11000000)),
-            contentScale = ContentScale.Crop
-        )
+    ConstraintLayout(modifier = Modifier.fillMaxWidth()
+                                        .clickable { onProfile.invoke() }
+                                        .padding(start = 8.dp, end = 8.dp)
+                                        .height(65.dp),
+                    constraintSet = alarmListItemConstraintSet()) {
+        AsyncImage(model                = alarmListItem.otherPictureUrl,
+                   contentDescription   = null,
+                   contentScale         = ContentScale.Crop,
+                   modifier             = Modifier.layoutId("image")
+                                                  .testTag("profileImage")
+                                                  .size(50.dp)
+                                                  .clip(CircleShape)
+                                                  .clickable{ onProfile.invoke() }
+                                                  .background(Color(0x11000000)))
 
-        Column(
-            modifier = Modifier.layoutId("content")
-                               .testTag("content")
-                               .width(0.dp)
-                               .height(50.dp)
-                               .clickable { onContents.invoke() },
-            verticalArrangement = Arrangement.Center
-        ) {
+        Column(modifier = Modifier.layoutId("content")
+                                  .testTag("content")
+                                  .width(0.dp)
+                                  .height(50.dp)
+                                  .clickable { onContents.invoke() },
+               verticalArrangement = Arrangement.Center) {
             Text(text = alarmListItem.contents)
             Text(text = alarmListItem.transformDate())
         }
 
-        AsyncImage(
-            model = alarmListItem.pictureUrl,
-            contentDescription = "",
-            Modifier.layoutId("reviewImage")
-                    .testTag("reviewImage")
-                    .size(50.dp)
-                    .clickable { onContents.invoke() }
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(Color(0x11000000)),
-            contentScale = ContentScale.Crop
-        )
+        AsyncImage(model                = alarmListItem.pictureUrl,
+                   contentDescription   = null,
+                   contentScale         = ContentScale.Crop,
+                   modifier             = Modifier.layoutId("reviewImage")
+                                                  .testTag("reviewImage")
+                                                  .size(50.dp)
+                                                  .clickable { onContents.invoke() }
+                                                  .clip(RoundedCornerShape(8.dp))
+                                                  .background(Color(0x11000000)))
     }
 }
 
