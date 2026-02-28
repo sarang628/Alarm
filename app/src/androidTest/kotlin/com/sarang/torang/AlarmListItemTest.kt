@@ -6,9 +6,11 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import com.sarang.torang.compose.AlarmListItem
+import com.sarang.torang.compose.AlarmItem
 import com.sarang.torang.data1.alarm.AlarmListItemUIState
+import com.sarang.torang.data1.alarm.transformDate
 import com.sryang.torang.ui.TorangTheme
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
@@ -19,20 +21,48 @@ class AlarmListItemTest {
     // an activity
 
     @Test
-    fun myTest() {
-        val contents = "가나다라"
-        val uiState =  AlarmListItemUIState(contents = contents,
-                                            createdDate = "2025-02-13 11:12:30")
-        // Start the app
+    fun clickTest(){
+        var onProfileClick: Boolean
+        var onContents: Boolean
         composeTestRule.setContent {
             TorangTheme() {
-                AlarmListItem(alarmListItem = uiState)
+                AlarmItem(alarmListItem = AlarmListItemUIState.Item(),
+                    onProfile     = {onProfileClick = true},
+                    onContents    = {onContents = true})
             }
         }
 
+        onProfileClick = false
+        onContents = false
         composeTestRule.onNodeWithTag(testTag = "content").performClick()
+        Assert.assertEquals(true, onContents)
+        Assert.assertEquals(false, onProfileClick)
+
+        onProfileClick = false
+        onContents = false
         composeTestRule.onNodeWithTag(testTag = "profileImage").performClick()
+        Assert.assertEquals(false, onContents)
+        Assert.assertEquals(true, onProfileClick)
+
+        onProfileClick = false
+        onContents = false
         composeTestRule.onNodeWithTag(testTag = "reviewImage").performClick()
+        Assert.assertEquals(true, onContents)
+        Assert.assertEquals(false, onProfileClick)
+    }
+
+    @Test
+    fun displayTest() {
+        val contents = "가나다라"
+        val uiState =  AlarmListItemUIState.Item(contents = contents,
+                                            createdDate = "2025-02-13 11:12:30")
+
+        // Start the app
+        composeTestRule.setContent {
+            TorangTheme {
+                AlarmItem(alarmListItem = uiState)
+            }
+        }
 
         composeTestRule.onNodeWithText(text = contents).assertIsDisplayed()
         assert(

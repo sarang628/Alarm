@@ -3,7 +3,12 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/alarm_di" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/login_di" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/repository" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/torang_database_di" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/torang_network_di" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/app/src/main/java/com/sarang/torang/di/torang_security_di" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/documents" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/gradle/TorangToml" vcs="Git" />
   </component>
 </project>

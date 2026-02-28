@@ -3,13 +3,16 @@ package com.sarang.torang.uistate
 import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
+import com.sarang.torang.data1.alarm.AlarmType
+import com.sarang.torang.data1.alarm.AlarmUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
 fun testAlarmUiState(context: Context, lifecycleOwner: LifecycleOwner): StateFlow<AlarmUiState> {
-    val data = MutableStateFlow<AlarmUiState>(AlarmUiState())
+    val data = MutableStateFlow<AlarmUiState>(AlarmUiState.Success())
     lifecycleOwner.lifecycleScope.launch {
         val delay = 10000L
         while (true) {
@@ -25,19 +28,19 @@ fun testAlarmUiState(context: Context, lifecycleOwner: LifecycleOwner): StateFlo
 }
 
 fun testRefreshingOn(): AlarmUiState {
-    return AlarmUiState(isRefreshing = true)
+    return AlarmUiState.Success(isRefreshing = true)
 }
 
 fun testRefreshingOff(): AlarmUiState {
-    return AlarmUiState(isRefreshing = false)
+    return AlarmUiState.Success(isRefreshing = false)
 }
 
 fun testErrorOn(): AlarmUiState {
-    return AlarmUiState(errorMsg = "에러 테스트")
+    return AlarmUiState.Success(errorMsg = "에러 테스트")
 }
 
 fun testErrorOff(): AlarmUiState {
-    return AlarmUiState()
+    return AlarmUiState.Success()
 }
 
 /*fun testListOn(context: Context): AlarmUiState {
@@ -48,5 +51,26 @@ fun testErrorOff(): AlarmUiState {
 }*/
 
 fun testListOff(): AlarmUiState {
-    return AlarmUiState()
+    return AlarmUiState.Success()
+}
+
+fun testAlarmListItem(): AlarmListItemUIState.Item {
+    return AlarmListItemUIState.Item(
+        id = 0,
+        contents = "contents",
+        otherPictureUrl = "otherPictureUrl",
+        user = AlarmUser("name"),
+        createdDate = "",
+        type = AlarmType.LIKE,
+        pictureUrl = "",
+        reviewId = 1
+    )
+}
+
+fun testAlarmListItem1(): AlarmListItemUIState {
+    return AlarmListItemUIState.Index(indexDate = "TODAY")
+}
+
+fun testAlarmListItem2(): AlarmListItemUIState {
+    return AlarmListItemUIState.Index(indexDate = "IN THIS WEEK")
 }

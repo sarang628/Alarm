@@ -1,20 +1,17 @@
 package com.sarang.torang.viewmodels
 
-import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sarang.torang.usecase.GetAlarmUseCase
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
 import com.sarang.torang.uistate.AlarmUiState
+import com.sarang.torang.usecase.GetAlarmUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,14 +19,29 @@ import javax.inject.Inject
 class AlarmViewModel @Inject constructor(
     private val alarmService: GetAlarmUseCase,
 ) : ViewModel() {
-    var uiState by mutableStateOf(AlarmUiState())
-        private set
-
+    private var alarmList : MutableStateFlow<List<AlarmListItemUIState>> = MutableStateFlow(emptyList())
+    private var loading : MutableStateFlow<Boolean> = MutableStateFlow(true)
     val isLogin = alarmService.isLogin
+    val uiState: StateFlow<AlarmUiState> =
+        combine(
+            alarmService.isLogin,
+            alarmList,
+            loading
+        ) { isLogin, alarmList, loading ->
+            if(!isLogin)
+                AlarmUiState.Login()
+            else if(loading)
+                AlarmUiState.Loading()
+            else if(alarmList.isEmpty())
+                AlarmUiState.EmptyList()
+            else
+                AlarmUiState.Success(list = alarmList)
+        }.stateIn(scope = viewModelScope,
+                  started = SharingStarted.WhileSubscribed(5000),
+                  initialValue = AlarmUiState.Loading())
 
     init {
         refresh()
-
         // 로그아웃에서 로그인 상태로 변경 시 알람 리스트를 새로고침
         viewModelScope.launch {
             isLogin.distinctUntilChanged().collect {
@@ -40,18 +52,11 @@ class AlarmViewModel @Inject constructor(
 
     fun refresh() {
         viewModelScope.launch {
-            uiState = uiState.copy(isRefreshing = true)
             try {
-                val result = alarmService.getAlarm();
-                uiState = uiState.copy(
-                    list = result,
-                    isRefreshing = false,
-                    isEmptyAlarm = result.isEmpty()
-                )
-            } catch (e: Exception) {
+                alarmList.value = alarmService.getAlarm()
+                loading.value = false
+            }catch (e : Exception){
 
-            } finally {
-                uiState = uiState.copy(isRefreshing = false)
             }
         }
     }

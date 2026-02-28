@@ -26,13 +26,14 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import com.sarang.torang.data1.alarm.AlarmListItemUIState
+import com.sarang.torang.data1.alarm.transformDate
 import com.sarang.torang.uistate.testAlarmListItem
 
 
 @Composable
-fun AlarmListItem(alarmListItem : AlarmListItemUIState = AlarmListItemUIState(),
-                  onContents    : () -> Unit    = {},
-                  onProfile     : () -> Unit    = {}) {
+fun AlarmItem(alarmListItem : AlarmListItemUIState.Item = AlarmListItemUIState.Item(),
+              onContents    : () -> Unit    = {},
+              onProfile     : () -> Unit    = {}) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,26 +45,22 @@ fun AlarmListItem(alarmListItem : AlarmListItemUIState = AlarmListItemUIState(),
         AsyncImage(
             model = alarmListItem.otherPictureUrl,
             contentDescription = "",
-            Modifier
-                .layoutId("image")
-                .testTag("profileImage")
-                .size(50.dp)
-                .clip(CircleShape)
-                .clickable(enabled = true,
-                           onClick = onProfile)
-                .background(Color(0x11000000)),
+            Modifier.layoutId("image")
+                    .testTag("profileImage")
+                    .size(50.dp)
+                    .clip(CircleShape)
+                    .clickable(enabled = true,
+                               onClick = onProfile)
+                    .background(Color(0x11000000)),
             contentScale = ContentScale.Crop
         )
 
         Column(
-            modifier = Modifier
-                .layoutId("content")
-                .testTag("content")
-                .width(0.dp)
-                .height(50.dp)
-                .clickable {
-                    onContents.invoke()
-                },
+            modifier = Modifier.layoutId("content")
+                               .testTag("content")
+                               .width(0.dp)
+                               .height(50.dp)
+                               .clickable { onContents.invoke() },
             verticalArrangement = Arrangement.Center
         ) {
             Text(text = alarmListItem.contents)
@@ -73,15 +70,12 @@ fun AlarmListItem(alarmListItem : AlarmListItemUIState = AlarmListItemUIState(),
         AsyncImage(
             model = alarmListItem.pictureUrl,
             contentDescription = "",
-            Modifier
-                .layoutId("reviewImage")
-                .testTag("reviewImage")
-                .size(50.dp)
-                .clickable {
-                    onContents.invoke()
-                }
-                .clip(RoundedCornerShape(8.dp))
-                .background(Color(0x11000000)),
+            Modifier.layoutId("reviewImage")
+                    .testTag("reviewImage")
+                    .size(50.dp)
+                    .clickable { onContents.invoke() }
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color(0x11000000)),
             contentScale = ContentScale.Crop
         )
     }
@@ -117,7 +111,7 @@ fun alarmListItemConstraintSet(): ConstraintSet {
 
 @Preview
 @Composable
-fun PreviewAlarmListItem() {
-    AlarmListItem(alarmListItem = testAlarmListItem(), onContents = {}, onProfile = {})
+fun PreviewAlarmItem() {
+    AlarmItem(alarmListItem = testAlarmListItem(), onContents = {}, onProfile = {})
 
 }

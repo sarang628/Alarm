@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sarang.torang.data1.alarm.AlarmListItemUIState
-import com.sarang.torang.uistate.convertedDateList
+import com.sarang.torang.uistate.AlarmUiState
 import com.sarang.torang.uistate.testAlarmListItem
 import com.sarang.torang.uistate.testAlarmListItem1
 import com.sarang.torang.uistate.testAlarmListItem2
@@ -28,73 +30,65 @@ import com.sarang.torang.viewmodels.AlarmViewModel
 typealias LoginScreen = @Composable () -> Unit
 
 @Composable
-fun AlarmScreen(
-    alarmViewModel  : AlarmViewModel  = hiltViewModel(),
-    onContents      : (Int) -> Unit   = {},
-    onProfile       : (Int) -> Unit   = {},
-    loginScreen     : LoginScreen     = {}
-) {
-    val uiState = alarmViewModel.uiState
-    val isLogin by alarmViewModel.isLogin.collectAsState(initial = false)
+fun AlarmScreen(alarmViewModel  : AlarmViewModel  = hiltViewModel(),
+                onContents      : (Int) -> Unit   = {},
+                onProfile       : (Int) -> Unit   = {},
+                loginScreen     : LoginScreen     = {}) {
+    val uiState : AlarmUiState by alarmViewModel.uiState.collectAsState()
 
-    if (isLogin) {
-        AlarmList(
-            isRefresh = uiState.isRefreshing,
-            list = uiState.convertedDateList,
-            onRefresh = { alarmViewModel.refresh() },
-            onContents = onContents,
-            onProfile = onProfile
-        )
-    } else {
-        loginScreen.invoke()
-    }
-}
-
-@Composable
-fun AlarmList(
-    isRefresh   : Boolean               = false,
-    list        : List<AlarmListItemUIState>   = listOf(),
-    onRefresh   : () -> Unit            = {},
-    onContents  : (Int) -> Unit         = {},
-    onProfile   : (Int) -> Unit         = {},
-    isEmpty     : Boolean               = false,
-) {
-    LazyColumn(Modifier.fillMaxSize()) {
-        items(list.size) {
-            if (list[it].indexDate.isNotEmpty()) {
-                AlarmListDateItem(list[it].indexDate)
-            } else {
-                AlarmListItem(
-                    alarmListItem = list[it],
-                    onContents = { onContents.invoke(list[it].reviewId) },
-                    onProfile = { onProfile.invoke(list[it].otherUserId) }
-                )
+    when(val state = uiState){
+        is AlarmUiState.Loading->{
+            Box(modifier = Modifier.fillMaxSize()){
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+        }
+        is AlarmUiState.Success->{
+            AlarmList(list        = state.list,
+                      onContents  = onContents,
+                      onProfile   = onProfile)
+        }
+        is AlarmUiState.Login->{
+            loginScreen.invoke()
+        }
+        is AlarmUiState.EmptyList->{
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(modifier = Modifier.align(Alignment.Center), text = "알람이 없습니다.")
             }
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        if (isEmpty) {
-            Text(modifier = Modifier.align(Alignment.Center), text = "알람이 없습니다.")
+}
+
+@Composable
+fun AlarmList(modifier    : Modifier                      = Modifier,
+              list        : List<AlarmListItemUIState>    = listOf(),
+              onContents  : (Int) -> Unit                 = {},
+              onProfile   : (Int) -> Unit                 = {}) {
+    LazyColumn(modifier) {
+        items(list) {
+            when(it){
+                is AlarmListItemUIState.Index -> {
+                    AlarmDateHeader(text = it.indexDate)
+                }
+                is AlarmListItemUIState.Item -> {
+                    AlarmItem(alarmListItem = it,
+                              onContents = { onContents.invoke(it.reviewId) },
+                              onProfile = { onProfile.invoke(it.otherUserId) })
+                }
+            }
         }
     }
 }
 
 @Composable
-fun AlarmListDateItem(text: String) {
-    Row(
-        Modifier
-            .height(50.dp)
-            .padding(start = 10.dp, bottom = 10.dp),
-        verticalAlignment = Alignment.Bottom
-    ) {
-        Text(
-            modifier = Modifier,
-            text = text,
-            fontSize = 24.sp,
-
-            fontWeight = FontWeight.Bold,
-        )
+fun AlarmDateHeader(text: String) {
+    Row(modifier          = Modifier.height(50.dp)
+                                    .padding(start = 10.dp, bottom = 10.dp, end = 10.dp),
+        verticalAlignment = Alignment.Bottom) {
+        Text(modifier = Modifier,
+             text = text,
+             fontSize = 24.sp,
+             fontWeight = FontWeight.Bold,)
     }
 }
 
@@ -110,12 +104,12 @@ fun PreviewAlarmList() {
             add(testAlarmListItem())
             add(testAlarmListItem2())
             add(testAlarmListItem())
-        }, onRefresh = {}, onProfile = {}, onContents = {}
+        }, onProfile = {}, onContents = {}
     )
 }
 
 @Preview
 @Composable
-fun PreviewAlarmListDateItem() {
-    AlarmListDateItem(text = "Today")
+fun PreviewAlarmDateHeader() {
+    AlarmDateHeader(text = "Today")
 }

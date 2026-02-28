@@ -8,19 +8,21 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 
 /** 알림 리스트 데이터 */
-data class AlarmListItemUIState(
-    val id: Int = 0,
-    val user: AlarmUser? = null,
-    val contents: String = "",
-    val otherPictureUrl: String = "",
-    val createdDate: String = "",
-    val indexDate: String = "",
-    val pictureUrl: String = "",
-    val reviewId: Int = 0,
-    val otherUserId: Int = 0,
-    val type: AlarmType? = null,
-) {
-    fun toTextViewMessage(clickUser: ClickableSpan, clickPost: ClickableSpan): SpannableString {
+sealed interface AlarmListItemUIState {
+    class Index(val indexDate: String = "") : AlarmListItemUIState
+    class Item(val id               : Int           = 0,
+               val user             : AlarmUser?    = null,
+               val contents         : String        = "",
+               val otherPictureUrl  : String        = "",
+               val createdDate      : String        = "",
+               val pictureUrl       : String        = "",
+               val reviewId         : Int           = 0,
+               val otherUserId      : Int           = 0,
+               val type             : AlarmType?    = null) : AlarmListItemUIState
+    class InitLoadingFailed()
+}
+
+    fun AlarmListItemUIState.Item.toTextViewMessage(clickUser: ClickableSpan, clickPost: ClickableSpan): SpannableString {
         if (user == null)
             return SpannableString("")
 
@@ -91,7 +93,7 @@ data class AlarmListItemUIState(
         return sp
     }
 
-    fun transformDate(): String {
+    fun AlarmListItemUIState.Item.transformDate(): String {
         try {
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val diff = Date(System.currentTimeMillis()).time - sdf.parse(createdDate).time
@@ -117,4 +119,3 @@ data class AlarmListItemUIState(
         }
         return ""
     }
-}
