@@ -128,5 +128,6 @@ dependencies {
     implementation(project(":library"))
 
     implementation(libs.torangRepository)
+    implementation(libs.login)
     implementation(libs.theme)
 }

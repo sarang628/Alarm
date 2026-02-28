@@ -1,6 +1,6 @@
 package com.sarang.torang.uistate
 
-import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
 import com.sarang.torang.data1.alarm.AlarmType
 import com.sarang.torang.data1.alarm.AlarmUser
 import com.sarang.torang.util.convertDate
@@ -10,7 +10,7 @@ data class AlarmUiState(
     // 스와이프 리프레시 갱신
     val isRefreshing: Boolean = false,
     // 얼림 리스트
-    val list: List<AlarmListItem> = ArrayList(),
+    val list: List<AlarmListItemUIState> = ArrayList(),
     // 에러메세지
     val errorMsg: String? = null,
     val isLoaded: Boolean = false,
@@ -29,8 +29,8 @@ data class AlarmUiState(
 val AlarmUiState.convertedDateList get() = convertDate(list)
 
 
-fun testAlarmListItem(): AlarmListItem {
-    return AlarmListItem(
+fun testAlarmListItem(): AlarmListItemUIState {
+    return AlarmListItemUIState(
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",
@@ -42,8 +42,8 @@ fun testAlarmListItem(): AlarmListItem {
     )
 }
 
-fun testAlarmListItem1(): AlarmListItem {
-    return AlarmListItem(
+fun testAlarmListItem1(): AlarmListItemUIState {
+    return AlarmListItemUIState(
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",
@@ -55,8 +55,8 @@ fun testAlarmListItem1(): AlarmListItem {
     )
 }
 
-fun testAlarmListItem2(): AlarmListItem {
-    return AlarmListItem(
+fun testAlarmListItem2(): AlarmListItemUIState {
+    return AlarmListItemUIState(
         id = 0,
         contents = "contents",
         otherPictureUrl = "otherPictureUrl",

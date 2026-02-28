@@ -3,16 +3,28 @@ package com.sarang.torang
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHost
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.sarang.torang.compose.AlarmScreen
+import com.sarang.torang.compose.signinsignup.LoginNavHost
+import com.sarang.torang.di.login_di.ProvideLoginScreen
 import com.sarang.torang.repository.LoginRepository
 import com.sryang.torang.ui.TorangTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,19 +36,31 @@ class MainActivity : ComponentActivity() {
     lateinit var repository: LoginRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContent {
             TorangTheme {
-                Surface(
-                    Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
+                Surface(modifier = Modifier.fillMaxSize()
+                                           .background(MaterialTheme.colorScheme.background)
                 ) {
-                    Column(Modifier.verticalScroll(rememberScrollState())) {
-                        Box(Modifier.fillMaxSize()) {
-                            AlarmScreen(onEmailLogin = {}, onProfile = {}, onContents = {})
+                    val navController = rememberNavController()
+                    Scaffold {
+                        Box(Modifier.fillMaxSize().padding(it)) {
+                            NavHost(navController = navController, startDestination = "alarmScreen"){
+                                composable("alarmScreen"){
+                                    AlarmScreen(onProfile   = {},
+                                                onContents  = {},
+                                                loginScreen = { ProvideLoginScreen{
+                                                    navController.navigate("login")
+                                                }})
+                                }
+                                composable("login") {
+                                    LoginNavHost(onSuccessLogin = {},
+                                                 onLookAround = {})
+                                }
+                            }
                         }
-                        //LoginRepositoryTest(loginRepository = repository)
                     }
+                    //LoginRepositoryTest(loginRepository = repository)
                 }
             }
         }

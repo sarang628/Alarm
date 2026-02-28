@@ -18,18 +18,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
-import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
 import com.sarang.torang.uistate.testAlarmListItem
 
 
 @Composable
-fun AlarmListItem(alarmListItem: AlarmListItem, onContents: () -> Unit, onProfile: () -> Unit) {
+fun AlarmListItem(alarmListItem : AlarmListItemUIState = AlarmListItemUIState(),
+                  onContents    : () -> Unit    = {},
+                  onProfile     : () -> Unit    = {}) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
@@ -43,15 +46,19 @@ fun AlarmListItem(alarmListItem: AlarmListItem, onContents: () -> Unit, onProfil
             contentDescription = "",
             Modifier
                 .layoutId("image")
+                .testTag("profileImage")
                 .size(50.dp)
                 .clip(CircleShape)
+                .clickable(enabled = true,
+                           onClick = onProfile)
                 .background(Color(0x11000000)),
             contentScale = ContentScale.Crop
         )
 
         Column(
             modifier = Modifier
-                .layoutId("contents")
+                .layoutId("content")
+                .testTag("content")
                 .width(0.dp)
                 .height(50.dp)
                 .clickable {
@@ -68,6 +75,7 @@ fun AlarmListItem(alarmListItem: AlarmListItem, onContents: () -> Unit, onProfil
             contentDescription = "",
             Modifier
                 .layoutId("reviewImage")
+                .testTag("reviewImage")
                 .size(50.dp)
                 .clickable {
                     onContents.invoke()
@@ -83,7 +91,7 @@ fun alarmListItemConstraintSet(): ConstraintSet {
     return ConstraintSet {
         val image = createRefFor("image")
         val reviewImage = createRefFor("reviewImage")
-        val contents = createRefFor("contents")
+        val content = createRefFor("content")
 
         constrain(image) {
             start.linkTo(parent.start)
@@ -97,7 +105,7 @@ fun alarmListItemConstraintSet(): ConstraintSet {
             bottom.linkTo(parent.bottom)
         }
 
-        constrain(contents) {
+        constrain(content) {
             start.linkTo(image.end, 8.dp)
             end.linkTo(reviewImage.start, 8.dp)
             top.linkTo(parent.top)

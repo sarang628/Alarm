@@ -1,13 +1,11 @@
 package com.sarang.torang.compose
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,19 +17,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
 import com.sarang.torang.uistate.convertedDateList
 import com.sarang.torang.uistate.testAlarmListItem
 import com.sarang.torang.uistate.testAlarmListItem1
 import com.sarang.torang.uistate.testAlarmListItem2
 import com.sarang.torang.viewmodels.AlarmViewModel
 
+
+typealias LoginScreen = @Composable () -> Unit
+
 @Composable
 fun AlarmScreen(
-    alarmViewModel: AlarmViewModel = hiltViewModel(),   // 알림 뷰모델
-    onEmailLogin: () -> Unit,
-    onContents: (Int) -> Unit,
-    onProfile: (Int) -> Unit,
+    alarmViewModel  : AlarmViewModel  = hiltViewModel(),
+    onContents      : (Int) -> Unit   = {},
+    onProfile       : (Int) -> Unit   = {},
+    loginScreen     : LoginScreen     = {}
 ) {
     val uiState = alarmViewModel.uiState
     val isLogin by alarmViewModel.isLogin.collectAsState(initial = false)
@@ -45,28 +46,18 @@ fun AlarmScreen(
             onProfile = onProfile
         )
     } else {
-        Box(Modifier.fillMaxSize()) {
-            Column(
-                Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = "로그인을 해주세요.")
-                Button(onClick = { onEmailLogin.invoke() }) {
-                    Text(text = "LOG IN WITH EMAIL")
-                }
-            }
-        }
+        loginScreen.invoke()
     }
 }
 
 @Composable
 fun AlarmList(
-    isRefresh: Boolean = false,
-    list: List<AlarmListItem>,
-    onRefresh: () -> Unit,
-    onContents: (Int) -> Unit,
-    onProfile: (Int) -> Unit,
-    isEmpty: Boolean = false,
+    isRefresh   : Boolean               = false,
+    list        : List<AlarmListItemUIState>   = listOf(),
+    onRefresh   : () -> Unit            = {},
+    onContents  : (Int) -> Unit         = {},
+    onProfile   : (Int) -> Unit         = {},
+    isEmpty     : Boolean               = false,
 ) {
     LazyColumn(Modifier.fillMaxSize()) {
         items(list.size) {
@@ -111,7 +102,7 @@ fun AlarmListDateItem(text: String) {
 @Composable
 fun PreviewAlarmList() {
     AlarmList(
-        list = ArrayList<AlarmListItem>().apply {
+        list = ArrayList<AlarmListItemUIState>().apply {
             add(testAlarmListItem1())
             add(testAlarmListItem())
             add(testAlarmListItem())

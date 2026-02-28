@@ -8,7 +8,7 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 
 /** 알림 리스트 데이터 */
-data class AlarmListItem(
+data class AlarmListItemUIState(
     val id: Int = 0,
     val user: AlarmUser? = null,
     val contents: String = "",

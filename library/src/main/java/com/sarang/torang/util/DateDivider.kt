@@ -1,7 +1,6 @@
 package com.sarang.torang.util
 
-import android.util.Log
-import com.sarang.torang.data1.alarm.AlarmListItem
+import com.sarang.torang.data1.alarm.AlarmListItemUIState
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -9,10 +8,10 @@ import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
 import kotlin.math.abs
 
-fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
+fun convertDate(list: List<AlarmListItemUIState>): List<AlarmListItemUIState> {
     val sdf = SimpleDateFormat("yyyy-MM-dd")
     val now = Date(System.currentTimeMillis())
-    val today: List<AlarmListItem> = list.stream().filter { data ->
+    val today: List<AlarmListItemUIState> = list.stream().filter { data ->
         try {
             val d = sdf.parse(data.createdDate)
             val diffHour: Long = TimeUnit.HOURS.convert(
@@ -25,7 +24,7 @@ fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
         }
         false
     }.collect(Collectors.toList())
-    val thisWeek: List<AlarmListItem> = list.stream().filter { data ->
+    val thisWeek: List<AlarmListItemUIState> = list.stream().filter { data ->
         try {
             val d: Date = sdf.parse(data.createdDate) as Date
             val diffHour: Long = TimeUnit.HOURS.convert(
@@ -38,7 +37,7 @@ fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
         }
         false
     }.collect(Collectors.toList())
-    val thisMonth: List<AlarmListItem> = list.stream().filter { data ->
+    val thisMonth: List<AlarmListItemUIState> = list.stream().filter { data ->
         try {
             val d: Date = sdf.parse(data.createdDate) as Date
             val diffHour: Long = TimeUnit.HOURS.convert(
@@ -51,7 +50,7 @@ fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
         }
         false
     }.collect(Collectors.toList())
-    val other: List<AlarmListItem> = list.stream().filter { data ->
+    val other: List<AlarmListItemUIState> = list.stream().filter { data ->
         try {
             val d: Date = sdf.parse(data.createdDate) as Date
             val diffHour: Long = TimeUnit.HOURS.convert(
@@ -64,21 +63,21 @@ fun convertDate(list: List<AlarmListItem>): List<AlarmListItem> {
         }
         false
     }.collect(Collectors.toList())
-    val list1 = ArrayList<AlarmListItem>()
+    val list1 = ArrayList<AlarmListItemUIState>()
     if (today.isNotEmpty()) {
-        list1.add(AlarmListItem(indexDate = "오늘"))
+        list1.add(AlarmListItemUIState(indexDate = "오늘"))
         list1.addAll(today)
     }
     if (thisWeek.isNotEmpty()) {
-        list1.add(AlarmListItem(indexDate = "이번주"))
+        list1.add(AlarmListItemUIState(indexDate = "이번주"))
         list1.addAll(thisWeek)
     }
     if (thisMonth.isNotEmpty()) {
-        list1.add(AlarmListItem(indexDate = "이번달"))
+        list1.add(AlarmListItemUIState(indexDate = "이번달"))
         list1.addAll(thisMonth)
     }
     if (other.isNotEmpty()) {
-        list1.add(AlarmListItem(indexDate = "오래전"))
+        list1.add(AlarmListItemUIState(indexDate = "오래전"))
         list1.addAll(other)
     }
     return list1
