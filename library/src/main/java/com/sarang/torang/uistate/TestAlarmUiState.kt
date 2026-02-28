@@ -68,9 +68,9 @@ fun testAlarmListItem(): AlarmListItemUIState.Item {
 }
 
 fun testAlarmListItem1(): AlarmListItemUIState {
-    return AlarmListItemUIState.Index(indexDate = "TODAY")
+    return AlarmListItemUIState.Header(title = "TODAY")
 }
 
 fun testAlarmListItem2(): AlarmListItemUIState {
-    return AlarmListItemUIState.Index(indexDate = "IN THIS WEEK")
+    return AlarmListItemUIState.Header(title = "IN THIS WEEK")
 }

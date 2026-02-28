@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 /** 알림 리스트 데이터 */
 sealed interface AlarmListItemUIState {
-    class Index(val indexDate: String = "") : AlarmListItemUIState
+    class Header(val title: String = "") : AlarmListItemUIState
     class Item(val id               : Int           = 0,
                val user             : AlarmUser?    = null,
                val contents         : String        = "",

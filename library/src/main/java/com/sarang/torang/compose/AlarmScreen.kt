@@ -67,8 +67,8 @@ fun AlarmList(modifier    : Modifier                      = Modifier,
     LazyColumn(modifier) {
         items(list) {
             when(it){
-                is AlarmListItemUIState.Index -> {
-                    AlarmDateHeader(text = it.indexDate)
+                is AlarmListItemUIState.Header -> {
+                    AlarmDateHeader(text = it.title)
                 }
                 is AlarmListItemUIState.Item -> {
                     AlarmItem(alarmListItem = it,
