@@ -105,8 +105,6 @@ dependencies {
     implementation(libs.material3.windows.size)
     implementation(libs.lifecycle.runtime.compose)
     implementation(libs.nav.compose)
-    implementation(libs.torangnetwork)
-    implementation(libs.torangdatabase)
     androidTestImplementation(libs.x.ui.test.junit4) //runTest
     debugImplementation(libs.x.ui.test.manifest) // Needed for createAndroidComposeRule, but not createComposeRule:
 
@@ -128,6 +126,8 @@ dependencies {
     implementation(project(":library"))
 
     implementation(libs.torangRepository)
+    implementation(libs.torangnetwork)
+    implementation(libs.torangdatabase)
     implementation(libs.login)
     implementation(libs.theme)
 }
