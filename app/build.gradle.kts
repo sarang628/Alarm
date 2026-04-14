@@ -130,4 +130,6 @@ dependencies {
     implementation(libs.torangdatabase)
     implementation(libs.login)
     implementation(libs.theme)
+    implementation(libs.commonImageLoader)
+    implementation(libs.coil)
 }

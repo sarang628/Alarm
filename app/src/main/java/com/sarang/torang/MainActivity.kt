@@ -16,6 +16,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.runtime.CompositionLocal
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHost
@@ -23,7 +26,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sarang.torang.compose.AlarmScreen
+import com.sarang.torang.compose.LocalAlarmImageLoader
 import com.sarang.torang.compose.signinsignup.LoginNavHost
+import com.sarang.torang.di.alarm_di.provideAlarmImageLoader
 import com.sarang.torang.di.login_di.ProvideLoginScreen
 import com.sarang.torang.repository.LoginRepository
 import com.sryang.torang.ui.TorangTheme
@@ -47,11 +52,15 @@ class MainActivity : ComponentActivity() {
                         Box(Modifier.fillMaxSize().padding(it)) {
                             NavHost(navController = navController, startDestination = "alarmScreen"){
                                 composable("alarmScreen"){
+                                    CompositionLocalProvider(
+                                        LocalAlarmImageLoader provides provideAlarmImageLoader
+                                    ) {
                                     AlarmScreen(onProfile   = {},
                                                 onContents  = {},
                                                 loginScreen = { ProvideLoginScreen{
                                                     navController.navigate("login")
                                                 }})
+                                    }
                                 }
                                 composable("login") {
                                     LoginNavHost(onSuccessLogin = {},

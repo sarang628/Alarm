@@ -57,7 +57,7 @@ fun testListOff(): AlarmUiState {
 fun testAlarmListItem(): AlarmListItemUIState.Item {
     return AlarmListItemUIState.Item(
         id = 0,
-        contents = "contents",
+        contents = "contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents contents ",
         otherPictureUrl = "otherPictureUrl",
         user = AlarmUser("name"),
         createdDate = "",

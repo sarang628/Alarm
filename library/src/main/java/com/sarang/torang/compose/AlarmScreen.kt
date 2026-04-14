@@ -87,7 +87,7 @@ fun AlarmDateHeader(text: String) {
         verticalAlignment = Alignment.Bottom) {
         Text(modifier = Modifier,
              text = text,
-             fontSize = 24.sp,
+             fontSize = 18.sp,
              fontWeight = FontWeight.Bold,)
     }
 }

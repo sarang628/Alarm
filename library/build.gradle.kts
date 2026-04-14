@@ -86,7 +86,6 @@ dependencies {
     // Navigation end
 
     implementation(libs.constraintlayout.compose)
-    implementation("io.coil-kt:coil-compose:2.3.0")
 }
 
 afterEvaluate {
