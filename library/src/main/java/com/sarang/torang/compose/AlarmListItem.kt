@@ -30,6 +30,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import com.sarang.torang.compose.LocalAlarmImageLoader
 import com.sarang.torang.data1.alarm.AlarmListItemUIState
+import com.sarang.torang.data1.alarm.toTextViewMessage
 import com.sarang.torang.data1.alarm.transformDate
 import com.sarang.torang.uistate.testAlarmListItem
 
@@ -61,6 +62,7 @@ fun AlarmItem(alarmListItem : AlarmListItemUIState.Item = AlarmListItemUIState.I
                                   .clickable { onContents.invoke() },
                verticalArrangement = Arrangement.Center) {
             Text(modifier = Modifier.fillMaxWidth(),
+                 //text = alarmListItem.toTextViewMessage(),
                  text = alarmListItem.contents,
                  fontSize = 14.sp,
                  lineHeight = 16.sp)

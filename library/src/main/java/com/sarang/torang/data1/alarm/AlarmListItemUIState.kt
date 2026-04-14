@@ -3,6 +3,16 @@ package com.sarang.torang.data1.alarm
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
+import android.view.View
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withLink
+import androidx.compose.ui.text.withStyle
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -22,76 +32,100 @@ sealed interface AlarmListItemUIState {
     class InitLoadingFailed()
 }
 
-    fun AlarmListItemUIState.Item.toTextViewMessage(clickUser: ClickableSpan, clickPost: ClickableSpan): SpannableString {
+    fun AlarmListItemUIState.Item.toTextViewMessage(onUserClick: () -> Unit = {},
+                                                    onPostClick: () -> Unit = {}): AnnotatedString {
         if (user == null)
-            return SpannableString("")
+            return buildAnnotatedString {  }
 
         return when (type) {
             AlarmType.LIKE -> getLikeMessage(
                 userName = user.name,
-                clickUser = clickUser,
-                clickPost = clickPost
+                onUserClick = onUserClick,
+                onPostClick = onPostClick
             )
 
             AlarmType.REPLY -> getReplyMessage(
                 userName = user.name,
-                clickUser = clickUser,
-                clickPost = clickPost
+                onUserClick = onUserClick,
+                onPostClick = onPostClick
             )
 
-            AlarmType.FOLLOW -> getFollowMessage(userName = user.name, clickUser = clickUser)
-            else -> SpannableString("")
+            AlarmType.FOLLOW -> getFollowMessage(
+                userName = user.name,
+                onUserClick = onUserClick
+            )
+            else -> buildAnnotatedString {  }
         }
     }
 
     fun getLikeMessage(
         userName: String,
-        clickUser: ClickableSpan? = null,
-        clickPost: ClickableSpan? = null,
-    ): SpannableString {
-        val sb = StringBuffer()
-        sb.append(userName)
-        sb.append("님이 ")
-        val startIndex = sb.length
-        sb.append("이 포스트")
-        val lastIndex = sb.length
-        sb.append("를 좋아합니다.")
-        var sp = SpannableString(sb.toString());
-        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        sp.setSpan(clickPost, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        return sp
+        onUserClick: () -> Unit = {},
+        onPostClick: () -> Unit = {}
+    ): AnnotatedString {
+        return buildAnnotatedString {
+            // 1. 유저 이름 영역 (스타일 및 링크 추가)
+            pushStringAnnotation(tag = "USER", annotation = userName)
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Blue)) {
+                append(userName)
+            }
+            pop()
+
+            append("님이 ")
+
+            // 2. 포스트 영역 (스타일 및 링크 추가)
+            val postText = "이 포스트"
+            pushStringAnnotation(tag = "POST", annotation = "post_id_or_data")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, color = Color.Blue)) {
+                append(postText)
+            }
+            pop()
+
+            append("를 좋아합니다.")
+        }
     }
 
-    fun getReplyMessage(
-        userName: String,
-        clickUser: ClickableSpan? = null,
-        clickPost: ClickableSpan? = null,
-    ): SpannableString {
-        val sb = StringBuffer()
-        sb.append(userName)
-        sb.append("님이 ")
-        val startIndex = sb.length
-        sb.append("이 포스트")
-        val lastIndex = sb.length
-        sb.append("에 댓글을 달았습니다.")
-        var sp = SpannableString(sb.toString());
-        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        sp.setSpan(clickPost, startIndex, lastIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        return sp
-    }
+fun getReplyMessage(
+    userName: String,
+    onUserClick: () -> Unit = {},
+    onPostClick: () -> Unit = {}
+): AnnotatedString {
+    return buildAnnotatedString {
+        // 유저 이름 부분
+        withLink(LinkAnnotation.Clickable(tag = "user", linkInteractionListener = { onUserClick() })) {
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append(userName)
+            }
+        }
 
-    fun getFollowMessage(
-        userName: String,
-        clickUser: ClickableSpan? = null,
-    ): SpannableString {
-        val sb = StringBuffer()
-        sb.append(userName)
-        sb.append("님이")
-        sb.append(" 팔로우 하였습니다.")
-        var sp = SpannableString(sb.toString());
-        sp.setSpan(clickUser, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        return sp
+        append("님이 ")
+
+        // 포스트 부분
+        withLink(LinkAnnotation.Clickable(tag = "post", linkInteractionListener = { onPostClick() })) {
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append("이 포스트")
+            }
+        }
+
+        append("에 댓글을 달았습니다.")
     }
+}
+
+fun getFollowMessage(
+    userName: String,
+    onUserClick: () -> Unit = {}
+): AnnotatedString {
+    return buildAnnotatedString {
+        // 유저 이름 부분
+        withLink(LinkAnnotation.Clickable(tag = "user", linkInteractionListener = { onUserClick() })) {
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                append(userName)
+            }
+        }
+
+        append("님이 팔로우 하였습니다.")
+    }
+}
 
     fun AlarmListItemUIState.Item.transformDate(): String {
         try {
